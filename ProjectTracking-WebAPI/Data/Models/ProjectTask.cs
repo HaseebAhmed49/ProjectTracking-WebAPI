@@ -13,7 +13,11 @@ namespace ProjectTracking_WebAPI.Models
 
         public string TaskCompletion { get; set; }
 
+        public int EmployeeID { get; set; }
+
         public Employee Employee { get; set; }
+
+        public int UserStoryID { get; set; }
 
         public UserStory UserStory { get; set; }
     }

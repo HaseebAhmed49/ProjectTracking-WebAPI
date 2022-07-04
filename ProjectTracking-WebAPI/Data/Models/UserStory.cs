@@ -11,7 +11,7 @@ namespace ProjectTracking_WebAPI.Models
 
         public Project Project { get; set; }
 
-        public List<ProjectTask> ProjectTasks { get; set; }
+        public List<ProjectTask>? ProjectTasks { get; set; }
     }
 }
 

@@ -13,7 +13,7 @@ namespace ProjectTracking_WebAPI.Models
 
         public string ClientName { get; set; }
 
-        public List<UserStory> UserStories { get; set; }
+        public List<UserStory>? UserStories { get; set; }
     }
 }
 

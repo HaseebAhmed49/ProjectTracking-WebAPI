@@ -27,5 +27,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+DBInitializer.Seed(app);
+
 app.Run();
 
