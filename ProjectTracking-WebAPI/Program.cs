@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectTracking_WebAPI.Data;
+using ProjectTracking_WebAPI.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer("Name=DefaultConnectionString"));
+
+builder.Services.AddTransient<EmployeeService>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

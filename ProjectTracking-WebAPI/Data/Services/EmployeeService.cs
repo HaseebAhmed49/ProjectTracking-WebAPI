@@ -13,7 +13,7 @@ namespace ProjectTracking_WebAPI.Data.Services
             _context = context;
         }
 
-        public async Task AddEmployee(Employee employee)
+        public async Task AddEmployee(EmployeeVM employee)
         {
             Employee newEmployee = new Employee()
             {
@@ -46,7 +46,28 @@ namespace ProjectTracking_WebAPI.Data.Services
             return employee;
         }
 
-        public async Task<Employee> UpdateEmployeeById(int id, Employee newEmployee)
+        public async Task<EmployeeWithProjectTasks> GetEmployeeWithProjectTasksById(int id)
+        {
+            var employee = _context.Employee.Where(em => em.EmoloyeeID == id).Select(emp => new EmployeeWithProjectTasks()
+            {
+                EmployeeName = emp.EmployeeName,
+                EmailID = emp.EmailID,
+                ContactNo = emp.ContactNo,
+                Designation = emp.Designation,
+                SkillSets = emp.SkillSets,
+                ProjectTasks = emp.ProjectTasks.Where(em => em.EmployeeID == id).Select(pt => new ProjectTaskForEmployeeVM()
+                {
+                    TaskEndDate = pt.TaskEndDate,
+                    AssignedTo = pt.AssignedTo,
+                    TaskStartDate = pt.TaskStartDate,
+                    ProjectTaskID = pt.ProjectTaskID,
+                    TaskCompletion = pt.TaskCompletion
+                }).ToList()
+            }).FirstOrDefault();
+            return employee;
+        }
+
+        public async Task<Employee> UpdateEmployeeById(int id, EmployeeVM newEmployee)
         {
             var employee = await _context.Employee.FirstOrDefaultAsync(em => em.EmoloyeeID == id);
             if (employee != null)
@@ -58,7 +79,6 @@ namespace ProjectTracking_WebAPI.Data.Services
                 employee.EmployeeName = newEmployee.EmployeeName;
                 _context.Update(employee);
                 await _context.SaveChangesAsync();
-                return newEmployee;
             }
             return employee;
         }

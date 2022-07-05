@@ -37,9 +37,11 @@
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Data\Services\" />
+    <None Remove="Data\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Data\Services\" />
+    <Folder Include="Data\ViewModels\" />
   </ItemGroup>
 </Project>
