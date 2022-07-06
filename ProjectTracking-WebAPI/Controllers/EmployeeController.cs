@@ -39,6 +39,7 @@ namespace ProjectTracking_WebAPI.Controllers
         {
             try
             {
+                if(id<0) return BadRequest($"Employee Id cant be -ve or 0");
                 var employee = await _service.GetEmployeeById(id);
                 return (employee != null) ? Ok(employee) : BadRequest($"No Employee with {id} Found");
             }
@@ -53,6 +54,7 @@ namespace ProjectTracking_WebAPI.Controllers
         {
             try
             {
+                if (id < 0) return BadRequest($"Employee Id cant be -ve or 0");
                 var employee = await _service.GetEmployeeWithProjectTasksById(id);
                 return (employee != null) ? Ok(employee) : BadRequest($"No Employee with {id} Found");
             }
@@ -68,7 +70,7 @@ namespace ProjectTracking_WebAPI.Controllers
             try
             {
                 var newEmployee = _service.AddEmployee(employee);
-                return Ok();
+                return Created($"api/employee/get-employee-by-id/13",newEmployee);
             }
             catch (Exception ex)
             {
@@ -81,6 +83,7 @@ namespace ProjectTracking_WebAPI.Controllers
         {
             try
             {
+                if (id < 0) return BadRequest($"Employee Id cant be -ve or 0");
                 var updatedEmployee = await _service.UpdateEmployeeById(id, employee);
                 return Ok(updatedEmployee);
             }
@@ -95,8 +98,9 @@ namespace ProjectTracking_WebAPI.Controllers
         {
             try
             {
-                await _service.DeleteEmployeeById(id);
-                return Ok();
+                if (id < 0) return BadRequest($"Employee Id cant be -ve or 0");
+                var deletedEmployee =  await _service.DeleteEmployeeById(id);
+                return (deletedEmployee != null) ? Ok(deletedEmployee) : BadRequest("No Employee Found");
             }
             catch (Exception ex)
             {

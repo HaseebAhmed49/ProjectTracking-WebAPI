@@ -13,7 +13,7 @@ namespace ProjectTracking_WebAPI.Data.Services
             _context = context;
         }
 
-        public async Task AddEmployee(EmployeeVM employee)
+        public async Task<Employee> AddEmployee(EmployeeVM employee)
         {
             Employee newEmployee = new Employee()
             {
@@ -26,9 +26,10 @@ namespace ProjectTracking_WebAPI.Data.Services
 
             await _context.Employee.AddAsync(newEmployee);
             await _context.SaveChangesAsync();
+            return newEmployee;
         }
 
-        public async Task DeleteEmployeeById(int id)
+        public async Task<Employee> DeleteEmployeeById(int id)
         {
             var employee = await _context.Employee.FirstOrDefaultAsync(em => em.EmoloyeeID == id);
             if(employee!=null)
@@ -36,6 +37,7 @@ namespace ProjectTracking_WebAPI.Data.Services
                 _context.Employee.Remove(employee);
                 await _context.SaveChangesAsync();
             }
+            return employee;
         }
 
         public async Task<List<Employee>> GetAllEmployee() => await _context.Employee.ToListAsync();
