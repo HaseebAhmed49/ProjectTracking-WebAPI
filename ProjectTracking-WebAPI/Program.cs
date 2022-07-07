@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer("Name=DefaultConnectionString"));
 
 builder.Services.AddTransient<EmployeeService>();
+builder.Services.AddTransient<ProjectServices>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

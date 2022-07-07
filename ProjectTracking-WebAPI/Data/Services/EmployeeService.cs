@@ -15,7 +15,7 @@ namespace ProjectTracking_WebAPI.Data.Services
 
         public async Task<Employee> AddEmployee(EmployeeVM employee)
         {
-            Employee newEmployee = new Employee()
+            var newEmployee = new Employee()
             {
                 EmailID = employee.EmailID,
                 SkillSets = employee.SkillSets,
