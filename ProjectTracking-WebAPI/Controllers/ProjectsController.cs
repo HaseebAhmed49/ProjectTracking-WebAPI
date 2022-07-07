@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProjectTracking_WebAPI.Data.Services;
+using ProjectTracking_WebAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,8 +39,23 @@ namespace ProjectTracking_WebAPI.Controllers
         {
             try
             {
+                if (id < 0) return BadRequest("Project ID can't be -ve or 0");
                 var allProjects = await _services.GetProjectById(id);
                 return (allProjects != null) ? Ok(allProjects) : BadRequest($"No Project with ID:{id} Found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("add-project")]
+        public async Task<IActionResult> AddProject([FromBody] ProjectVM projectVM)
+        {
+            try
+            {
+                var addedProject = await _services.AddProject(projectVM);
+                return Created($"api/project/get-project-by-id/{addedProject.ProjectID}", addedProject);
             }
             catch (Exception ex)
             {
