@@ -49,6 +49,21 @@ namespace ProjectTracking_WebAPI.Controllers
             }
         }
 
+        [HttpGet("get-project-with-user-stories-by-id/{id}")]
+        public async Task<IActionResult> GetProjectWithUserStoriesById(int id)
+        {
+            try
+            {
+                if (id < 0) return BadRequest("Project ID can't be -ve or 0");
+                var project = await _services.GetProjectWithUserStoriesById(id);
+                return (project != null) ? Ok(project) : BadRequest($"No Project with ID:{id} Found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("add-project")]
         public async Task<IActionResult> AddProject([FromBody] ProjectVM projectVM)
         {
@@ -56,6 +71,36 @@ namespace ProjectTracking_WebAPI.Controllers
             {
                 var addedProject = await _services.AddProject(projectVM);
                 return Created($"api/project/get-project-by-id/{addedProject.ProjectID}", addedProject);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("update-project-by-id/{id}")]
+        public async Task<IActionResult> UpdateProjectById(int id,[FromBody] ProjectVM projectVM)
+        {
+            try
+            {
+                if (id < 0) return BadRequest("Project ID can't be -ve or 0");
+                var updatedProject = await _services.UpdateProjectById(id,projectVM);
+                return Ok(updatedProject);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("delete-project-by-id/{id}")]
+        public async Task<IActionResult> DeleteProjectById(int id)
+        {
+            try
+            {
+                if (id < 0) return BadRequest("Project ID can't be -ve or 0");
+                var deletedProject = await _services.DeleteProjectById(id);
+                return Ok(deletedProject);
             }
             catch (Exception ex)
             {

@@ -70,7 +70,7 @@ namespace ProjectTracking_WebAPI.Controllers
             try
             {
                 var newEmployee = await _service.AddEmployee(employee);
-                return Created($"api/employee/get-employee-by-id/13",newEmployee);
+                return Created($"api/employee/get-employee-by-id/{newEmployee.EmoloyeeID}",newEmployee);
             }
             catch (Exception ex)
             {
