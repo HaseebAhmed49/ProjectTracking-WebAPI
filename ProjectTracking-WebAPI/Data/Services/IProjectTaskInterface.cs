@@ -7,6 +7,10 @@ namespace ProjectTracking_WebAPI.Data.Services
     {
         public Task<List<ProjectTask>> GetAllProjectTasks();
 
+        public Task<ProjectTaskWithDetailsVM> GetProjectTaskWithDetails(int id);
+
+        public Task<List<ProjectTaskWithDetailsVM>> GetAllProjectTasksWithDetails();
+
         public Task<ProjectTask> GetProjectTaskById(int id);
 
         public Task<ProjectTask> AddProjectTask(ProjectTaskVM projectVM);

@@ -29,22 +29,85 @@ namespace ProjectTracking_WebAPI.Data.Services
             return newProjectTask;
         }
 
-        public Task<ProjectTask> DeleteProjectTaskById(int id)
+        public async Task<ProjectTask> DeleteProjectTaskById(int id)
         {
-            throw new NotImplementedException();
+            var projectTask = await _context.ProjectTask.FirstOrDefaultAsync(pt => pt.ProjectTaskID == id);
+            if (projectTask != null)
+            {
+                _context.ProjectTask.Remove(projectTask);
+                await _context.SaveChangesAsync();
+                return projectTask;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public Task<List<ProjectTask>> GetAllProjectTasks() => _context.ProjectTask.ToListAsync();
+        public async Task<List<ProjectTask>> GetAllProjectTasks() => await _context.ProjectTask.ToListAsync();
 
-        public Task<ProjectTask> GetProjectTaskById(int id)
+        public async Task<List<ProjectTaskWithDetailsVM>> GetAllProjectTasksWithDetails()
         {
-            var projectTask = _context.ProjectTask.FirstOrDefaultAsync(pt => pt.ProjectTaskID == id);
+            var allProjectTasksWithDetails = new List<ProjectTaskWithDetailsVM>();
+            var allProjectTask = await _context.ProjectTask.ToListAsync();
+            if(allProjectTask.Count>0)
+            {
+                foreach(var item in allProjectTask)
+                {
+                    var projectTaskWithDetails = _context.ProjectTask.Where(pt => pt.ProjectTaskID == item.ProjectTaskID).Select(ptd => new ProjectTaskWithDetailsVM()
+                    {
+                        AssignedTo = ptd.AssignedTo,
+                        TaskCompletion = ptd.TaskCompletion,
+                        TaskEndDate = ptd.TaskEndDate,
+                        TaskStartDate = ptd.TaskStartDate,
+                        Employee = _context.Employee.FirstOrDefault(emp => emp.EmoloyeeID == ptd.EmployeeID),
+                        UserStory = _context.UserStory.FirstOrDefault(us => us.UserStoryID == ptd.UserStoryID)
+                    }).FirstOrDefault();
+                    allProjectTasksWithDetails.Add(projectTaskWithDetails);
+                }
+            }
+            return allProjectTasksWithDetails;
+        }
+
+        public async Task<ProjectTask> GetProjectTaskById(int id)
+        {
+            var projectTask = await _context.ProjectTask.FirstOrDefaultAsync(pt => pt.ProjectTaskID == id);
             return projectTask;
         }
 
-        public Task<ProjectTask> UpdateProjectTaskById(int id, ProjectTaskVM projectVM)
+        public async Task<ProjectTaskWithDetailsVM> GetProjectTaskWithDetails(int id)
         {
-            throw new NotImplementedException();
+            var projectTaskWithDetails = _context.ProjectTask.Where(pt => pt.ProjectTaskID == id).Select(ptd => new ProjectTaskWithDetailsVM()
+            {
+                AssignedTo = ptd.AssignedTo,
+                TaskCompletion = ptd.TaskCompletion,
+                TaskEndDate = ptd.TaskEndDate,
+                TaskStartDate = ptd.TaskStartDate,
+                Employee = _context.Employee.FirstOrDefault(emp => emp.EmoloyeeID == ptd.EmployeeID),
+                UserStory = _context.UserStory.FirstOrDefault(us => us.UserStoryID == ptd.UserStoryID)
+            }).FirstOrDefault();
+            return projectTaskWithDetails;
+        }
+
+        public async Task<ProjectTask> UpdateProjectTaskById(int id, ProjectTaskVM projectTaskVM)
+        {
+            var projectTask = await _context.ProjectTask.FirstOrDefaultAsync(pt => pt.ProjectTaskID == id);
+            if(projectTask!=null)
+            {
+                projectTask.AssignedTo = projectTaskVM.AssignedTo;
+                projectTask.EmployeeID = projectTaskVM.EmployeeID;
+                projectTask.TaskEndDate = projectTaskVM.TaskEndDate;
+                projectTask.TaskCompletion = projectTaskVM.TaskCompletion;
+                projectTask.TaskStartDate = projectTaskVM.TaskStartDate;
+                projectTask.UserStoryID = projectTaskVM.UserStoryID;
+                _context.ProjectTask.Update(projectTask);
+                await _context.SaveChangesAsync();
+                return projectTask;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

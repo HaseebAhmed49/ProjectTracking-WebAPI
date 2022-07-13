@@ -26,7 +26,22 @@ namespace ProjectTracking_WebAPI.Controllers
         {
             try
             {
-                var allProjectTasks = _service.GetAllProjectTasks();
+                var allProjectTasks = await _service.GetAllProjectTasks();
+                return (allProjectTasks != null) ? Ok(allProjectTasks) : BadRequest("No Project Tasks Found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // GET: api/values
+        [HttpGet("get-all-project-tasks-with-details")]
+        public async Task<IActionResult> GetAllProjectTasksWithDetails()
+        {
+            try
+            {
+                var allProjectTasks = await _service.GetAllProjectTasksWithDetails();
                 return (allProjectTasks != null) ? Ok(allProjectTasks) : BadRequest("No Project Tasks Found");
             }
             catch (Exception ex)
@@ -36,12 +51,27 @@ namespace ProjectTracking_WebAPI.Controllers
         }
 
         // GET: api/values/5
-        [HttpGet("get-all-project-tasks/{id}")]
+        [HttpGet("get-project-task-by-id/{id}")]
         public async Task<IActionResult> GetProjectTaskById(int id)
         {
             try
             {
-                var projectTask = _service.GetProjectTaskById(id);
+                var projectTask = await _service.GetProjectTaskById(id);
+                return (projectTask != null) ? Ok(projectTask) : BadRequest($"No Project Task with Id:{id} Found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // GET: api/values/5
+        [HttpGet("get-project-task-with-details-by-id/{id}")]
+        public async Task<IActionResult> GetProjectTaskWithDetailsById(int id)
+        {
+            try
+            {
+                var projectTask = await _service.GetProjectTaskWithDetails(id);
                 return (projectTask != null) ? Ok(projectTask) : BadRequest($"No Project Task with Id:{id} Found");
             }
             catch (Exception ex)
@@ -56,9 +86,8 @@ namespace ProjectTracking_WebAPI.Controllers
         {
             try
             {
-                var newProjectTask = _service.AddProjectTask(projectTaskVM);
-                return Ok(newProjectTask);
-//                return Created($"api/project/get-project-by-id/{newProjectTask.}", addedProject);
+                var newProjectTask = await _service.AddProjectTask(projectTaskVM);
+                return Created($"api/projecttask/get-project-task-by-id/{newProjectTask.ProjectTaskID}", newProjectTask);
             }
             catch (Exception ex)
             {
@@ -67,15 +96,33 @@ namespace ProjectTracking_WebAPI.Controllers
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("update-project-task-by-id/{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] ProjectTaskVM projectTaskVM)
         {
+            try
+            {
+                var updatedProjectTask = await _service.UpdateProjectTaskById(id,projectTaskVM);
+                return Created($"api/projecttask/get-project-task-by-id/{updatedProjectTask.ProjectTaskID}", updatedProjectTask);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("delete-project-task-by-id/{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                var updatedProjectTask = await _service.DeleteProjectTaskById(id);
+                return Created($"api/projecttask/get-project-task-by-id/{updatedProjectTask.ProjectTaskID}", updatedProjectTask);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
