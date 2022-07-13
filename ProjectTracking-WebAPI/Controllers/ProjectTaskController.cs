@@ -13,7 +13,7 @@ namespace ProjectTracking_WebAPI.Controllers
     [Route("api/[controller]")]
     public class ProjectTaskController : Controller
     {
-        private readonly ProjectTaskService _service;
+        private ProjectTaskService _service;
 
         public ProjectTaskController(ProjectTaskService service)
         {
