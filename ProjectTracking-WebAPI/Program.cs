@@ -13,6 +13,7 @@ builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer("Nam
 
 builder.Services.AddTransient<EmployeeService>();
 builder.Services.AddTransient<ProjectServices>();
+builder.Services.AddTransient<ProjectTaskService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
