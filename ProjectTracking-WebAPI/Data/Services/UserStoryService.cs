@@ -43,6 +43,17 @@ namespace ProjectTracking_WebAPI.Data.Services
             return userStory;
         }
 
+        public async Task<UserStoryWithDetailsVM> GetUserStoryWithProjectDetails(int id)
+        {
+            var userStoryWithDetails = _context.UserStory.Where(us => us.UserStoryID == id).Select(usd => new UserStoryWithDetailsVM()
+            {
+                Story = usd.Story,
+                ProjectTasks = usd.ProjectTasks.Where(pt => pt.UserStoryID == id).ToList(),
+                Project = _context.Project.FirstOrDefault(p => p.ProjectID == usd.ProjectID)                
+            }).FirstOrDefault();
+            return userStoryWithDetails;
+        }
+
         public async Task<UserStory> UpdateUserStoryById(int id, UserStoryVM userStoryVM)
         {
             var userStoryFound = await _context.UserStory.FirstOrDefaultAsync(us => us.UserStoryID == id);

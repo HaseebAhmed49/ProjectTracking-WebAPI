@@ -36,6 +36,22 @@ namespace ProjectTracking_WebAPI.Controllers
         }
 
         // GET: api/values/5
+        [HttpGet("get-user-story-with-project-details-by-id/{id}")]
+        public async Task<IActionResult> GetUserStoryWithProjectDetailsById(int id)
+        {
+            try
+            {
+                if (id <= 0) return BadRequest("User Story Id cant be -ve or zero");
+                var userStory = await _service.GetUserStoryWithProjectDetails(id);
+                return (userStory != null) ? Ok(userStory) : BadRequest("No User Story Found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // GET: api/values/5
         [HttpGet("get-all-user-story-by-id/{id}")]
         public async Task<IActionResult> GetUserStoryById(int id)
         {
