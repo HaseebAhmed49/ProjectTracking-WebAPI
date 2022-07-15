@@ -5,6 +5,8 @@ namespace ProjectTracking_WebAPI.Data.Services
 {
     public interface IUserStoryInterface
     {
+        public Task<UserStoryWithDetailsVM> GetUserStoryWithProjectDetails(int id);
+
         public Task<List<UserStory>> GetAllUserStories();
 
         public Task<UserStory> GetUserStoryById(int id);

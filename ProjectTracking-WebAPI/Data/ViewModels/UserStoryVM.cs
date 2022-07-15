@@ -12,5 +12,14 @@ namespace ProjectTracking_WebAPI.Models
 
         public int ProjectID { get; set; }
     }
+
+    public class UserStoryWithDetailsVM
+    {
+        public string Story { get; set; }
+
+        public Project Project { get; set; }
+
+        public List<ProjectTask>? ProjectTasks { get; set; }
+    }
 }
 
