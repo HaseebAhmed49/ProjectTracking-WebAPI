@@ -5,5 +5,12 @@ namespace ProjectTracking_WebAPI.Models
     {
         public string Story { get; set; }
     }
+
+    public class UserStoryVM
+    {
+        public string Story { get; set; }
+
+        public int ProjectID { get; set; }
+    }
 }
 
