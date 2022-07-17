@@ -1,0 +1,11 @@
+﻿using System;
+namespace ProjectTracking_WebAPI.Data.Models
+{
+    public class Tokens
+    {
+        public string Token { get; set; }
+
+        public string RefreshToken { get; set; }
+    }
+}
+
