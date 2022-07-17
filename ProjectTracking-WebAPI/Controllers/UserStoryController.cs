@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectTracking_WebAPI.Data.Services;
 using ProjectTracking_WebAPI.Models;
@@ -10,14 +11,17 @@ using ProjectTracking_WebAPI.Models;
 
 namespace ProjectTracking_WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class UserStoryController : Controller
     {
         private UserStoryService _service;
+        private readonly IJWTManagerInterface _JWTManager;
 
-        public UserStoryController(UserStoryService service)
+        public UserStoryController(UserStoryService service, IJWTManagerInterface jWTManager)
         {
             _service = service;
+            _JWTManager = jWTManager;
         }
 
         // GET: api/values
