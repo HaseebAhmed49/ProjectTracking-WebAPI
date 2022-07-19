@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using ProjectTracking_WebAPI.Data.Models;
 using ProjectTracking_WebAPI.Models;
 
 namespace ProjectTracking_WebAPI.Data
@@ -24,6 +25,9 @@ namespace ProjectTracking_WebAPI.Data
         public DbSet<ProjectTask> ProjectTask { get; set; }
 
         public DbSet<Employee> Employee { get; set; }
+
+        // JWT Refresh
+        public virtual DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
     }
 }
 

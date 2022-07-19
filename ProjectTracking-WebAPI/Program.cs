@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -25,8 +26,24 @@ builder.Services.AddAuthentication(x=>
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["JWT:Issuer"],
         ValidAudience = builder.Configuration["JWT:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(key)
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        // Refresh JWT
+        ClockSkew = TimeSpan.Zero
+        // end
     };
+    // Refresh JWT
+    o.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+        {
+            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+            {
+                context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
+            }
+            return Task.CompletedTask;
+        }
+    };
+    // end
 });
 
 builder.Services.AddSingleton<IJWTManagerInterface, JWTManagerService>();
@@ -36,6 +53,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer("Name=DefaultConnectionString"));
+
+// Refresh Token
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
+    options.Password.RequireUppercase = true; // on production add more secured options
+    options.Password.RequireDigit = true;
+    options.SignIn.RequireConfirmedEmail = true;
+}).AddEntityFrameworkStores<AppDBContext>().AddDefaultTokenProviders();
+// end
+
 
 builder.Services.AddTransient<EmployeeService>();
 builder.Services.AddTransient<ProjectServices>();
