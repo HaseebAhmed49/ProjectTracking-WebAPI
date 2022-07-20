@@ -10,42 +10,45 @@ namespace ProjectTracking_WebAPI.Data.Services
 {
     public class JWTManagerService: IJWTManagerInterface
     {
-
-        Dictionary<string, string> UserRecords = new Dictionary<string, string>
-        {
-            { "user1","password1"},
-            { "user2","password2"},
-            { "user3","password3"}
-        };
-
-
         private readonly IConfiguration _iconfiguration;
         public JWTManagerService(IConfiguration iconfiguration)
         {
             _iconfiguration = iconfiguration;
         }
 
-        public Tokens Auhtenticate(Users users)
+        public Tokens GenerateToken(string username)
         {
-            if(!UserRecords.Any(x => x.Key == users.Name && x.Value == users.Password))
+            return GenerateJWTTokens(username);
+        }
+
+        public Tokens GenerateRefreshToken(string username)
+        {
+            return GenerateJWTTokens(username);
+        }
+
+        public Tokens GenerateJWTTokens(string username)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenKey = Encoding.UTF8.GetBytes(_iconfiguration["JWT:Key"]);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                    new Claim(ClaimTypes.Name, username)
+                    }),
+                    Expires = DateTime.UtcNow.AddMinutes(1),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var refreshToken = GenerateRefreshToken();
+                return new Tokens { Access_Token = tokenHandler.WriteToken(token), Refresh_Token = refreshToken };
+            }
+            catch(Exception ex)
             {
                 return null;
             }
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenKey = Encoding.UTF8.GetBytes(_iconfiguration["JWT:Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, users.Name)
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey),SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var refreshToken = GenerateRefreshToken();
-            return new Tokens { Access_Token = tokenHandler.WriteToken(token) ,Refresh_Token = refreshToken};
         }
 
         public string GenerateRefreshToken()
@@ -58,10 +61,6 @@ namespace ProjectTracking_WebAPI.Data.Services
             }
         }
 
-        public Tokens GenerateRefreshToken(Users users)
-        {
-            return Auhtenticate(users);
-        }
 
         public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {

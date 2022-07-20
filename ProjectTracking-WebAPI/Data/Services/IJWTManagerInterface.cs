@@ -6,9 +6,9 @@ namespace ProjectTracking_WebAPI.Data.Services
 {
     public interface IJWTManagerInterface
     {
-        Tokens Auhtenticate(Users users);
+        Tokens GenerateToken(string username);
 
-        Tokens GenerateRefreshToken(Users users);
+        Tokens GenerateRefreshToken(string username);
 
         ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }
