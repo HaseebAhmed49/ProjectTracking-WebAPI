@@ -47,6 +47,7 @@ builder.Services.AddAuthentication(x=>
 });
 
 builder.Services.AddSingleton<IJWTManagerInterface, JWTManagerService>();
+builder.Services.AddScoped<IUserServiceInterface, UserService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
