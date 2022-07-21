@@ -11,7 +11,8 @@ using ProjectTracking_WebAPI.Models;
 
 namespace ProjectTracking_WebAPI.Controllers
 {
-    [Authorize]
+    //    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     public class EmployeeController : Controller
     {

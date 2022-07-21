@@ -50,7 +50,7 @@ builder.Services.AddAuthentication(x=>
 builder.Services.AddSingleton<IJWTManagerInterface, JWTManagerService>();
 
 // Creating issues
-//builder.Services.AddSingleton<IUserServiceInterface, UserService>();
+builder.Services.AddScoped<IUserServiceInterface, UserService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -72,7 +72,7 @@ builder.Services.AddTransient<EmployeeService>();
 builder.Services.AddTransient<ProjectServices>();
 builder.Services.AddTransient<ProjectTaskService>();
 builder.Services.AddTransient<UserStoryService>();
-builder.Services.AddTransient<IUserServiceInterface, UserService>();
+//builder.Services.AddTransient<IUserServiceInterface, UserService>();
 
 builder.Services.AddEndpointsApiExplorer();
 // JWT was working fine with Postman but not Swagger. Need to add things in SwaggerGen

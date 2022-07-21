@@ -11,7 +11,7 @@ using ProjectTracking_WebAPI.Models;
 
 namespace ProjectTracking_WebAPI.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     public class ProjectTaskController : Controller
     {
