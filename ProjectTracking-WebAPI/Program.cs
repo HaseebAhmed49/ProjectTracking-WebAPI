@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProjectTracking_WebAPI.Data;
+using ProjectTracking_WebAPI.Data.Models;
 using ProjectTracking_WebAPI.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,7 +48,9 @@ builder.Services.AddAuthentication(x=>
 });
 
 builder.Services.AddSingleton<IJWTManagerInterface, JWTManagerService>();
-builder.Services.AddScoped<IUserServiceInterface, UserService>();
+
+// Creating issues
+//builder.Services.AddSingleton<IUserServiceInterface, UserService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -56,7 +59,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer("Name=DefaultConnectionString"));
 
 // Refresh Token
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
+builder.Services.AddIdentity<Users, IdentityRole>(
+    options => {
     options.Password.RequireUppercase = true; // on production add more secured options
     options.Password.RequireDigit = true;
     options.SignIn.RequireConfirmedEmail = true;
@@ -68,6 +72,7 @@ builder.Services.AddTransient<EmployeeService>();
 builder.Services.AddTransient<ProjectServices>();
 builder.Services.AddTransient<ProjectTaskService>();
 builder.Services.AddTransient<UserStoryService>();
+builder.Services.AddTransient<IUserServiceInterface, UserService>();
 
 builder.Services.AddEndpointsApiExplorer();
 // JWT was working fine with Postman but not Swagger. Need to add things in SwaggerGen
@@ -95,7 +100,6 @@ builder.Services.AddSwaggerGen(c =>
         new String[] { }
         }
     });
-
 });
 
 var app = builder.Build();
@@ -117,6 +121,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 DBInitializer.Seed(app);
+DBInitializer.SeedUserAndRolesAsync(app).Wait();
 
 app.Run();
 

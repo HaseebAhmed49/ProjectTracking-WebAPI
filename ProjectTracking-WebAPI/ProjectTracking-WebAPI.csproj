@@ -53,10 +53,12 @@
     <None Remove="System.IdentityModel.Tokens.Jwt" />
     <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
+    <None Remove="Data\Static\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Data\Services\" />
     <Folder Include="Data\ViewModels\" />
+    <Folder Include="Data\Static\" />
   </ItemGroup>
 </Project>

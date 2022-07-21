@@ -5,7 +5,7 @@ namespace ProjectTracking_WebAPI.Data.Services
 {
     public interface IUserServiceInterface
     {
-        Task<bool> IsValidUserAsync(Users users);
+//        Task<bool> IsValidUserAsync(Users users);
 
         UserRefreshToken AddUserRefreshTokens(UserRefreshToken user);
 

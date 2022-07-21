@@ -6,12 +6,11 @@ namespace ProjectTracking_WebAPI.Data.Services
 {
     public class UserService: IUserServiceInterface
     {
-        private readonly UserManager<IdentityUser> _userManager;
+//        private readonly UserManager<IdentityUser> _userManager;
         private readonly AppDBContext _context;
 
-        public UserService(UserManager<IdentityUser> userManager, AppDBContext context)
+        public UserService(AppDBContext context)
         {
-            _userManager = userManager;
             _context = context;
         }
 
@@ -37,12 +36,12 @@ namespace ProjectTracking_WebAPI.Data.Services
             return _context.SaveChanges();
         }
 
-        public async Task<bool> IsValidUserAsync(Users users)
-        {
-            var u = _userManager.Users.FirstOrDefault(o => o.UserName == users.Name);
-            var result = await _userManager.CheckPasswordAsync(u, users.Password);
-            return result;
-        }
+        //public async Task<bool> IsValidUserAsync(Users users)
+        //{
+        //    var u = _userManager.Users.FirstOrDefault(o => o.UserName == users.Name);
+        //    var result = await _userManager.CheckPasswordAsync(u, users.PasswordHash);
+        //    return result;
+        //}
 
     }
 }

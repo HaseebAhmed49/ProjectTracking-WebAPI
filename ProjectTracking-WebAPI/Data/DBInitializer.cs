@@ -1,4 +1,7 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
+using ProjectTracking_WebAPI.Data.Models;
+using ProjectTracking_WebAPI.Data.Static;
 using ProjectTracking_WebAPI.Models;
 
 namespace ProjectTracking_WebAPI.Data
@@ -96,6 +99,53 @@ namespace ProjectTracking_WebAPI.Data
                     });
                     context.SaveChanges();
                 }
+            }
+        }
+
+        // Identity
+        public static async Task SeedUserAndRolesAsync(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+                // Roles
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+                // Users
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<Users>>();
+
+                var adminUser = await userManager.FindByEmailAsync("admin@projecttracking.com");
+                if(adminUser == null)
+                {
+                    var newAdminUser = new Users()
+                    {
+                        Name = "Haseeb Ahmed",
+                        UserName = "haseebahmed02",
+                        Email = "admin@projecttracking.com",
+                        EmailConfirmed = true,
+                    };
+                    await userManager.CreateAsync(newAdminUser,"Coding@1234?");
+                    await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+                }
+
+                var appUser = await userManager.FindByEmailAsync("user@projecttracking.com");
+                if (appUser == null)
+                {
+                    var newAppUser = new Users()
+                    {
+                        Name = "App User",
+                        UserName = "app-user",
+                        Email = "user@projecttracking.com",
+                        EmailConfirmed = true,
+                    };
+                    await userManager.CreateAsync(newAppUser, "Coding@1234?");
+                    await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
+                }
+
             }
         }
     }

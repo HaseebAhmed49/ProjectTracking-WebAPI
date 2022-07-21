@@ -1,11 +1,12 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjectTracking_WebAPI.Data.Models;
 using ProjectTracking_WebAPI.Models;
 
 namespace ProjectTracking_WebAPI.Data
 {
-    public class AppDBContext: DbContext
+    public class AppDBContext: IdentityDbContext<Users>
     {
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
         {
@@ -16,6 +17,7 @@ namespace ProjectTracking_WebAPI.Data
         {
             modelBuilder.Entity<Employee>()
                 .HasKey(em => em.EmoloyeeID);
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<UserStory> UserStory { get; set; }

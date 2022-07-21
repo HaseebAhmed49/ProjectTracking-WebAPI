@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ProjectTracking_WebAPI.Data;
 using ProjectTracking_WebAPI.Data.Models;
 using ProjectTracking_WebAPI.Data.Services;
+using ProjectTracking_WebAPI.Data.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,9 +21,16 @@ namespace ProjectTracking_WebAPI.Controllers
         private readonly IJWTManagerInterface _JWTManager;
         private readonly IUserServiceInterface _userServiceInterface;
 
-        public UserController(IJWTManagerInterface jWTManager, IUserServiceInterface userServiceInterface)
+        private readonly UserManager<Users> _userManager;
+        private readonly SignInManager<Users> _signInManager;
+        private readonly AppDBContext _context;
+
+        public UserController(IJWTManagerInterface jWTManager, UserManager<Users> userManager,SignInManager<Users> signInManager,AppDBContext context,IUserServiceInterface userServiceInterface)
         {
             _JWTManager = jWTManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _context = context;
             _userServiceInterface = userServiceInterface;
         }
 
@@ -39,28 +49,34 @@ namespace ProjectTracking_WebAPI.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
-        public async Task<IActionResult> Authenticate(Users users)
+        public async Task<IActionResult> Authenticate(UserVM users)
         {
-            var validUser = await _userServiceInterface.IsValidUserAsync(users);
-            if (!validUser) return Unauthorized("Incorrect username or password");
+            var validUser = await _userManager.FindByEmailAsync(users.Email);
+            if (validUser == null) return Unauthorized("Incorrect username or password");
 
-            var token = _JWTManager.GenerateToken(users.Name);
-
-            if(token == null)
+            if(validUser != null)
             {
-                return Unauthorized("Invalid attempt");
+                var passwordCheck = await _userManager.CheckPasswordAsync(validUser,users.Password);
+                if(passwordCheck)
+                {
+                    var token = _JWTManager.GenerateToken(users.Name);
+                    if (token == null)
+                    {
+                        return Unauthorized("Invalid attempt");
+                    }
+                    // saving refresh token to the db
+                    UserRefreshToken userRefreshToken = new UserRefreshToken
+                    {
+                        UserName = users.Name,
+                        Refresh_Token = token.Refresh_Token
+                    };
+
+                    _userServiceInterface.AddUserRefreshTokens(userRefreshToken);
+                    _userServiceInterface.SaveCommit();
+                    return Ok(token);
+                }
             }
-
-            // saving refresh token to the db
-            UserRefreshToken userRefreshToken = new UserRefreshToken
-            {
-                UserName = users.Name,
-                Refresh_Token = token.Refresh_Token
-            };
-
-            _userServiceInterface.AddUserRefreshTokens(userRefreshToken);
-            _userServiceInterface.SaveCommit();
-            return Ok(token);
+            return Unauthorized("Incorrect username or password");
         }
 
         [AllowAnonymous]
