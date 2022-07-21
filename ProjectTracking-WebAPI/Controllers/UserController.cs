@@ -42,7 +42,6 @@ namespace ProjectTracking_WebAPI.Controllers
                 "Haseeb Ahmed",
                 "Umair Ahmed"
             };
-
             return users;
         }
 
@@ -53,7 +52,6 @@ namespace ProjectTracking_WebAPI.Controllers
         {
             var validUser = await _userManager.FindByEmailAsync(users.Email);
             if (validUser == null) return Unauthorized("Incorrect username or password");
-
             if(validUser != null)
             {
                 var passwordCheck = await _userManager.CheckPasswordAsync(validUser,users.Password);
@@ -61,16 +59,13 @@ namespace ProjectTracking_WebAPI.Controllers
                 {
                     var token = _JWTManager.GenerateToken(users.Name);
                     if (token == null)
-                    {
                         return Unauthorized("Invalid attempt");
-                    }
                     // saving refresh token to the db
                     UserRefreshToken userRefreshToken = new UserRefreshToken
                     {
                         UserName = users.Name,
                         Refresh_Token = token.Refresh_Token
                     };
-
                     _userServiceInterface.AddUserRefreshTokens(userRefreshToken);
                     _userServiceInterface.SaveCommit();
                     return Ok(token);
@@ -86,33 +81,23 @@ namespace ProjectTracking_WebAPI.Controllers
         {
             var principal = _JWTManager.GetPrincipalFromExpiredToken(tokens.Access_Token);
             var username = principal.Identity?.Name;
-
             // retreive the saved refresh token from database
             var savedRefreshToken = _userServiceInterface.GetSavedRefreshToken(username,tokens.Refresh_Token);
-
             if(savedRefreshToken.Refresh_Token != tokens.Refresh_Token)
-            {
                     return Unauthorized("Invalid attempt");
-            }
 
             var newJWTToken = _JWTManager.GenerateRefreshToken(username);
             if(newJWTToken == null)
-            {
                 return Unauthorized("Invalid attempt");
-            }
-
-
             // saving refresh token to the db
             UserRefreshToken userRefreshToken = new UserRefreshToken
             {
                 UserName = username,
                 Refresh_Token = tokens.Refresh_Token
             };
-
             _userServiceInterface.DeleteUserRefreshToken(username, tokens.Refresh_Token);
             _userServiceInterface.AddUserRefreshTokens(userRefreshToken);
             _userServiceInterface.SaveCommit();
-
             return Ok(newJWTToken);
         }
 

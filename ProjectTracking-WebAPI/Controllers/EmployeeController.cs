@@ -22,8 +22,8 @@ namespace ProjectTracking_WebAPI.Controllers
         public EmployeeController(EmployeeService service, IJWTManagerInterface jWTManager)
         {
             _service = service;
-                _JWTManager = jWTManager;
-            }
+            _JWTManager = jWTManager;
+        }
 
             [HttpGet("get-all-employees")]
         public async Task<IActionResult> GetAllEmployees()
