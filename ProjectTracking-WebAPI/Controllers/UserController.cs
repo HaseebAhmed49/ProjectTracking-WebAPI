@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectTracking_WebAPI.Data;
 using ProjectTracking_WebAPI.Data.Models;
 using ProjectTracking_WebAPI.Data.Services;
+using ProjectTracking_WebAPI.Data.Static;
 using ProjectTracking_WebAPI.Data.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -101,6 +102,28 @@ namespace ProjectTracking_WebAPI.Controllers
             return Ok(newJWTToken);
         }
 
+        [AllowAnonymous]
+        [HttpPost("sign-up")]
+        public async Task<IActionResult> Register(UserVM userVM)
+        {
+            if (!ModelState.IsValid) return BadRequest("Check User Details again!");
+            var user = await _userManager.FindByEmailAsync(userVM.Email);
+            if (user != null)
+            {
+                return BadRequest($"User with this email {userVM.Email} already exists");
+            }
+
+            var newAdminUser = new Users()
+            {
+                Name = userVM.Name,
+                UserName = userVM.Name,
+                Email = userVM.Email,
+                EmailConfirmed = true,
+            };
+            await _userManager.CreateAsync(newAdminUser, userVM.Password);
+            await _userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+            return Ok(newAdminUser);
+        }
     }
 }
 

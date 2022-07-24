@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
 using ProjectTracking_WebAPI.Data.Models;
+using ProjectTracking_WebAPI.Data.ViewModels;
 
 namespace ProjectTracking_WebAPI.Data.Services
 {
