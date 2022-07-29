@@ -10,4 +10,3 @@ namespace ProjectTracking_WebAPI.Data.ViewModels
         public string Password { get; set; }
     }
 }
-

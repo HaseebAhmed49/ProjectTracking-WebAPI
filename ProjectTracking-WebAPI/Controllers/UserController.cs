@@ -49,7 +49,7 @@ namespace ProjectTracking_WebAPI.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
-        public async Task<IActionResult> Authenticate(UserVM users)
+        public async Task<IActionResult> Authenticate([FromBody] UserVM users)
         {
             var validUser = await _userManager.FindByEmailAsync(users.Email);
             if (validUser == null) return Unauthorized("Incorrect username or password");

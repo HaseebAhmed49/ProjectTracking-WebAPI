@@ -11,23 +11,23 @@ import { UsersService } from 'src/app/services/users/users.service';
 export class SignInComponent implements OnInit {
 
  signInRequest: User ={
-   name:'',
-   email: '',
-   password:''
+   Name:'',
+   Email: '',
+   Password:''
  };
 
-  constructor(private userService: UsersService, private router: Router) { }
+  constructor(private userService: UsersService) { }
 
   ngOnInit(): void {
   }
 
   signInUser(){
+    console.log(this.signInRequest);
     this.userService.signInUser(this.signInRequest)
     .subscribe({
-      next: (User) => {
-        this.router.navigate(['loggedIn']);
+      next: (user) => {
+        console.log(user);
       }
     });
   }
-
 }
