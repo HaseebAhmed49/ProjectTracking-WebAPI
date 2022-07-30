@@ -14,7 +14,7 @@ export class UsersService {
 
   baseApiUrl: string = environment.baseApiUrl;
 
-  signInUser(signInRequest: User): Observable<User>{
-    return this.http.post<User>(this.baseApiUrl + '/api/User/authenticate',signInRequest);
+  signInUser(signInRequest: User): Observable<any>{
+    return this.http.post(this.baseApiUrl + '/api/User/authenticate',signInRequest);
   }
 }
