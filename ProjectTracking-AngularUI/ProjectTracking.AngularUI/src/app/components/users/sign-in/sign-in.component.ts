@@ -1,8 +1,11 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Token } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users/users.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -17,7 +20,9 @@ export class SignInComponent implements OnInit {
    Password:''
  };
 
-  constructor(private userService: UsersService) { }
+ invalidLogin?: boolean;
+
+  constructor(private http: HttpClient) { }
   ngOnInit(): void {
   }
 
@@ -30,14 +35,21 @@ export class SignInComponent implements OnInit {
   //     }
   //   });
   // }
+  baseApiUrl: string = environment.baseApiUrl;
 
   signInUser(){
     console.log(this.signInRequest);
-    this.userService.signInUser(this.signInRequest)
-    .subscribe(result=>{
-      localStorage.setItem('jwt_token', result.access_token);
-      alert(localStorage.getItem('jwt_token'));
-      console.log(localStorage.getItem('jwt_token'));
+    this.http.post(this.baseApiUrl + '/api/User/authenticate',this.signInRequest,{
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Access-Control-Allow-Origin': '*',
+      })
+    }).subscribe(response => {
+      const token = (<any>response).token;
+      localStorage.setItem("jwt", token);
+      this.invalidLogin = false;
+      console.log(token);
+
     });
   }
 }
