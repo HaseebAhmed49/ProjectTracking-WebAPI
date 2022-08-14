@@ -56,7 +56,7 @@ builder.Services.AddScoped<IUserServiceInterface, UserService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer("Name=DefaultConnectionString"));
+builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer("Name=DefaultConnectionStringAzure"));
 
 // Refresh Token
 builder.Services.AddIdentity<Users, IdentityRole>(
