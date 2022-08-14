@@ -1,10 +1,10 @@
 import { UserStory } from "./userstory";
 
 export class Project{
-    projectId: any;
+    projectId?: number;
     projectName?: string;
     startDate?: Date;
     endDate?: Date;
     clientName?: string;
-    userStories[]: UserStory;
+ //   userStories[]: UserStory;
 }

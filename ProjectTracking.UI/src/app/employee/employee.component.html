@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">Project Tracking Application</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggle-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/">Home</a>
+            </li>
+            <li *ngIf="isUserAuthenticated()" class="nav-item">
+                <a class="nav-link" routerLink="/employee">Employee</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="logOut()">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<form class="form-horizontal" [formGroup]="employeeForm">
+    <h1 style="text-align: center;"> Welcome to Employee CRUD with .NET Web API</h1>
+    <div>
+    <div class="form-group">
+        <label for="name" class="control-label col-sm-2">Employee Name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtEmployeeName" formControlName="employeeName" placeholder="Name of Employee">
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="designation" class="control-label col-sm-2">Designation:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtEmployeeDesignation" formControlName="employeeDesignation" placeholder="Designation of Employee">
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="contactNo" class="control-label col-sm-2">Contact No:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtEmployeeContactNo" formControlName="employeeContactNo" placeholder="Contact No of Employee">
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="emailId" class="control-label col-sm-2">Email Id:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtEmployeeId" formControlName="employeeEmailId" placeholder="Email Id of Employee">
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="skillSet" class="control-label col-sm-2">Skill Set:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtEmployeeSkillSet" formControlName="employeeSkillSet" placeholder="Skill Set of Employee">
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <button class="btn btn-primary" (click)="AddEmployee(employeeForm.Value)">Add New Employee</button>
+                </div>
+                <div class="col-sm">
+                    <button class="btn btn-primary" (click)="UpdateEmployee(employeeForm.Value)">Update Employee</button>
+                </div>
+                <div class="col-sm">
+                    <button class="btn btn-primary" (click)="Clear(employeeForm.Value)">Clear</button>
+                </div>
+            </div>
+        </div>
+        <br/>
+        </div>
+        <div>
+            <div class="alert-success alert" style="text-align: center;"><b>Employee List</b></div>
+            <div class="table-responsive" style="text-align: center;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Designation</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Email Id</th>
+                            <th scope="col">Skill Set</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let emp of EmployeeList | async; index as i">
+                            <th scope="row">{{ i+1 }}</th>
+                            <td>{{ emp.employeeName }}</td>
+                            <td>{{ emp.designation }}</td>
+                            <td>{{ emp.contactNo }}</td>
+                            <td>{{ emp.emailId }}</td>
+                            <td>{{ emp.skillSet }}</td>
+                            <td><button class="btn1" type="button" matToolTip="Click Edit Button" (click)="EmployeeDetailsToEdit(emp.employeeId)">Edit</button>
+                                |
+                                <button class="btn1" type="button" matToolTip="Click Delete Button" (click)="DeleteEmployee(emp.employeeId)">Delete</button>                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

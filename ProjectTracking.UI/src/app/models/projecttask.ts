@@ -2,7 +2,7 @@ import { Employee } from "./employee";
 import { UserStory } from "./userstory";
 
 export class ProjectTask{
-    projectTaskId: any;
+    projectTaskId?: number;
     assignedTo?: string;
     taskStartDate?: Date;
     taskEndDate?: Date;
