@@ -20,12 +20,14 @@ export class LoginComponent {
 
     public login = (form:NgForm) => {
       const credentials = JSON.stringify(form.value);
-      this.http.post(this.url + "login"+credentials,{
+      this.http.post(this.url + "login",credentials,{
         headers: new HttpHeaders({
-          "Content-Type":"application/json"
+          "Content-Type":"application/json",
+          'Access-Control-Allow-Origin': '*'
         })
       }).subscribe(response => {
         const token = (<any>response).token;
+        console.log("Entered in Login Subscribe");
         localStorage.setItem("jwt",token);
         this.invalidLogin=false;
         this.toastr.success("Logged in Successfully");

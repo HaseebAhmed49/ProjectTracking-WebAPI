@@ -47,8 +47,8 @@ namespace ProjectTracking_WebAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
-        [Route("login")]
+        [HttpPost("login")]
+//        [Route("login")]
         public async Task<IActionResult> Authenticate([FromBody] UserVM users)
         {
             var validUser = await _userManager.FindByEmailAsync(users.Email);
