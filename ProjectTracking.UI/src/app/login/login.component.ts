@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent {
   invalidLogin?: boolean;
   url = configUrl.apiServer.url + '/api/User/';
@@ -26,9 +27,10 @@ export class LoginComponent {
           'Access-Control-Allow-Origin': '*'
         })
       }).subscribe(response => {
-        const token = (<any>response).token;
+        const token = (<any>response).access_Token;
         console.log("Entered in Login Subscribe");
         localStorage.setItem("jwt",token);
+        console.log(token);
         this.invalidLogin=false;
         this.toastr.success("Logged in Successfully");
         this.router.navigate(["/employee"]);        

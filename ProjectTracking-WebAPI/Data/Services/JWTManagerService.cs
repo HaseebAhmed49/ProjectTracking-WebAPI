@@ -34,6 +34,8 @@ namespace ProjectTracking_WebAPI.Data.Services
                 var tokenKey = Encoding.UTF8.GetBytes(_iconfiguration["JWT:Key"]);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
+                    Issuer = _iconfiguration["JWT:Issuer"],
+                    Audience = _iconfiguration["JWT:Audience"],
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                     new Claim(ClaimTypes.Name, username)
@@ -41,6 +43,7 @@ namespace ProjectTracking_WebAPI.Data.Services
                     Expires = DateTime.UtcNow.AddMinutes(10),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
                 };
+                //                var token = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var refreshToken = GenerateRefreshToken();
                 return new Tokens { Access_Token = tokenHandler.WriteToken(token), Refresh_Token = refreshToken };

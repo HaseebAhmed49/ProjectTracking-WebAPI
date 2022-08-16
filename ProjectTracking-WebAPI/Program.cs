@@ -11,29 +11,29 @@ using ProjectTracking_WebAPI.Data.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // JWT AddAuthentication with AddJwtBearer
-builder.Services.AddAuthentication(x=>
+builder.Services.AddAuthentication(opt=>
 {
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(o =>
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
 {
     var key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]);
-    o.SaveToken = true;
-    o.TokenValidationParameters = new TokenValidationParameters
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
+        ValidateIssuer = true,
+        ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["JWT:Issuer"],
         ValidAudience = builder.Configuration["JWT:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(key),
-        // Refresh JWT
+        // Refresh JWT        
         ClockSkew = TimeSpan.Zero
         // end
     };
     // Refresh JWT
-    o.Events = new JwtBearerEvents
+    options.Events = new JwtBearerEvents
     {
         OnAuthenticationFailed = context =>
         {
@@ -44,7 +44,7 @@ builder.Services.AddAuthentication(x=>
             return Task.CompletedTask;
         }
     };
-    // end
+//    end
 });
 
 builder.Services.AddSingleton<IJWTManagerInterface, JWTManagerService>();
