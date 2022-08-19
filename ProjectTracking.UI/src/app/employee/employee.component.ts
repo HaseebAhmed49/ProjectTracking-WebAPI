@@ -17,7 +17,7 @@ export class EmployeeComponent implements OnInit {
   EmployeeList1?: Observable<Employee[]>;
   employeeForm: any;
   massage="";
-
+  token:any;
   // Will see these properties later
   prodCategory = "";
   productId = 0;
@@ -34,12 +34,13 @@ export class EmployeeComponent implements OnInit {
       EmailID: ['',[Validators.required]],
       SkillSets: ['',[Validators.required]],
     });
+    this.token = localStorage.getItem("jwt");
     this.getEmployeeList();
   }
 
   getEmployeeList()
   {
-    this.EmployeeList1 = this.employeeService.getEmployeeList();
+    this.EmployeeList1 = this.employeeService.getEmployeeList(this.token);
     this.EmployeeList = this.EmployeeList1;
   }
 
@@ -50,7 +51,7 @@ export class EmployeeComponent implements OnInit {
 
 
   // Employee to Edit
-  EmployeeDetailsToEdit(id: string){
+  EmployeeDetailsToEdit(id: any){
     console.log("Edit Employee Details Implementation");
 
   }
@@ -65,8 +66,17 @@ export class EmployeeComponent implements OnInit {
 
   }
   // Delete
-  DeleteEmployee(id:number){
+  DeleteEmployee(id:any){
     console.log("Delete Employee Implementation");
+    this.token = localStorage.getItem("jwt");
+    if(confirm('Do you want to delete this Employee?')){
+      console.log(id);
+      this.employeeService.deleteEmployeeById(id,this.token).subscribe(() =>{
+        console.log(id);
+        this.toastr.success('Employee Deleted Successfully');
+        this.getEmployeeList();
+      });
+    }
   }
 
   Clear(employee: Employee){
@@ -75,7 +85,7 @@ export class EmployeeComponent implements OnInit {
 
   public logOut = () => {
     localStorage.removeItem("jwt");
-    this.router.navigate(["/"]);
+    this.router.navigate(["/login"]);
   }
 
   isUserAuthenticated(){

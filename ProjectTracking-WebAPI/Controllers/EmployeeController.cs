@@ -26,7 +26,7 @@ namespace ProjectTracking_WebAPI.Controllers
         }
 
             [HttpGet("get-all-employees")]
-        public async Task<IActionResult> GetAllEmployees()
+        public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
         {
             try
             {

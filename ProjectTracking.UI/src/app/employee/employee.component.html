@@ -79,24 +79,27 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Employee Id</th>
                             <th scope="col">Employee Name</th>
                             <th scope="col">Designation</th>
                             <th scope="col">Contact</th>
                             <th scope="col">Email Id</th>
                             <th scope="col">Skill Set</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let emp of EmployeeList | async; index as i">
                             <th scope="row">{{ i+1 }}</th>
+                            <td>{{ emp.employeeID }}</td>
                             <td>{{ emp.employeeName }}</td>
                             <td>{{ emp.designation }}</td>
                             <td>{{ emp.contactNo }}</td>
-                            <td>{{ emp.emailId }}</td>
-                            <td>{{ emp.skillSet }}</td>
-                            <td><button class="btn1" type="button" matToolTip="Click Edit Button" (click)="EmployeeDetailsToEdit(emp.employeeId)">Edit</button>
+                            <td>{{ emp.emailID }}</td>
+                            <td>{{ emp.skillSets }}</td>
+                            <td><button class="btn1" type="button" matToolTip="Click Edit Button" (click)="EmployeeDetailsToEdit(emp.employeeID)">Edit</button>
                                 |
-                                <button class="btn1" type="button" matToolTip="Click Delete Button" (click)="DeleteEmployee(emp.employeeId)">Delete</button>                                
+                                <button class="btn1" type="button" matToolTip="Click Delete Button" (click)="DeleteEmployee(emp.employeeID)">Delete</button>                                
                             </td>
                         </tr>
                     </tbody>

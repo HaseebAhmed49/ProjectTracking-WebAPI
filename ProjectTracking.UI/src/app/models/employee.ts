@@ -1,11 +1,11 @@
 import { ProjectTask } from "./projecttask";
 
 export class Employee{
-    employeeId: any;
+    employeeID: any;
     employeeName?: string;
     designation?: string;
     contactNo?: string;
-    emailId?: string;
-    skillSet?: string;
-    projectTasks?: ProjectTask
+    emailID?: string;
+    skillSets?: string;
+    projectTasks?: ProjectTask;
 }

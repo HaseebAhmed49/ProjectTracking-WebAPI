@@ -5,8 +5,9 @@
     </button>
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav mr-auto">
-            <li *ngIf="isUserAuthenticated()" class="nav-item">
-                <a class="nav-link" routerLink="/employee">Employee</a>
+            <!-- <li *ngIf="isUserAuthenticated()" class="nav-item"> -->
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/employee">Employee</a>
             </li>
             <li *ngIf="isUserAuthenticated()" class="nav-item">
                 <a class="nav-link" (click)="logOut()">Logout</a>
