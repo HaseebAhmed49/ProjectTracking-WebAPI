@@ -1,7 +1,7 @@
 import { ProjectTask } from "./projecttask";
 
 export class Employee{
-    employeeID: any;
+    employeeID?: string;
     employeeName?: string;
     designation?: string;
     contactNo?: string;
