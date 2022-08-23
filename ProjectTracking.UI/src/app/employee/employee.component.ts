@@ -92,6 +92,7 @@ export class EmployeeComponent implements OnInit {
     const token = localStorage.getItem("jwt");
     if(token && !this.jwtHelper.isTokenExpired(token)){
       return true;
+      console.log("Valid Token");
     }
     else{
       return false;
