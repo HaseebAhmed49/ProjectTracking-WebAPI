@@ -16,7 +16,7 @@ namespace ProjectTracking_WebAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>()
-                .HasKey(em => em.EmoloyeeID);
+                .HasKey(em => em.EmployeeID);
             base.OnModelCreating(modelBuilder);
         }
 

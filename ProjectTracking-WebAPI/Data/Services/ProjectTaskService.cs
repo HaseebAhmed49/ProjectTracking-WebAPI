@@ -60,7 +60,7 @@ namespace ProjectTracking_WebAPI.Data.Services
                         TaskCompletion = ptd.TaskCompletion,
                         TaskEndDate = ptd.TaskEndDate,
                         TaskStartDate = ptd.TaskStartDate,
-                        Employee = _context.Employee.FirstOrDefault(emp => emp.EmoloyeeID == ptd.EmployeeID),
+                        Employee = _context.Employee.FirstOrDefault(emp => emp.EmployeeID == ptd.EmployeeID),
                         UserStory = _context.UserStory.FirstOrDefault(us => us.UserStoryID == ptd.UserStoryID)
                     }).FirstOrDefault();
                     allProjectTasksWithDetails.Add(projectTaskWithDetails);
@@ -83,7 +83,7 @@ namespace ProjectTracking_WebAPI.Data.Services
                 TaskCompletion = ptd.TaskCompletion,
                 TaskEndDate = ptd.TaskEndDate,
                 TaskStartDate = ptd.TaskStartDate,
-                Employee = _context.Employee.FirstOrDefault(emp => emp.EmoloyeeID == ptd.EmployeeID),
+                Employee = _context.Employee.FirstOrDefault(emp => emp.EmployeeID == ptd.EmployeeID),
                 UserStory = _context.UserStory.FirstOrDefault(us => us.UserStoryID == ptd.UserStoryID)
             }).FirstOrDefault();
             return projectTaskWithDetails;

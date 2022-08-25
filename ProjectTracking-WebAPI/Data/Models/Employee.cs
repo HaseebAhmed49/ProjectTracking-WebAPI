@@ -3,7 +3,7 @@ namespace ProjectTracking_WebAPI.Models
 {
     public class Employee
     {
-        public int EmoloyeeID { get; set; }
+        public int EmployeeID { get; set; }
 
         public string EmployeeName { get; set; }
 

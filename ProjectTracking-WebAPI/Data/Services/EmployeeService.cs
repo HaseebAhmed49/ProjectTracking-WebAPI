@@ -31,7 +31,7 @@ namespace ProjectTracking_WebAPI.Data.Services
 
         public async Task<Employee> DeleteEmployeeById(int id)
         {
-            var employee = await _context.Employee.FirstOrDefaultAsync(em => em.EmoloyeeID == id);
+            var employee = await _context.Employee.FirstOrDefaultAsync(em => em.EmployeeID == id);
             if(employee!=null)
             {
                 _context.Employee.Remove(employee);
@@ -44,13 +44,13 @@ namespace ProjectTracking_WebAPI.Data.Services
 
         public async Task<Employee> GetEmployeeById(int id)
         {
-            var employee = await _context.Employee.FirstOrDefaultAsync(em => em.EmoloyeeID == id);
+            var employee = await _context.Employee.FirstOrDefaultAsync(em => em.EmployeeID == id);
             return employee;
         }
 
         public async Task<EmployeeWithProjectTasks> GetEmployeeWithProjectTasksById(int id)
         {
-            var employee = _context.Employee.Where(em => em.EmoloyeeID == id).Select(emp => new EmployeeWithProjectTasks()
+            var employee = _context.Employee.Where(em => em.EmployeeID == id).Select(emp => new EmployeeWithProjectTasks()
             {
                 EmployeeName = emp.EmployeeName,
                 EmailID = emp.EmailID,
@@ -71,7 +71,7 @@ namespace ProjectTracking_WebAPI.Data.Services
 
         public async Task<Employee> UpdateEmployeeById(int id, EmployeeVM newEmployee)
         {
-            var employee = await _context.Employee.FirstOrDefaultAsync(em => em.EmoloyeeID == id);
+            var employee = await _context.Employee.FirstOrDefaultAsync(em => em.EmployeeID == id);
             if (employee != null)
             {
                 employee.EmailID = newEmployee.EmailID;
