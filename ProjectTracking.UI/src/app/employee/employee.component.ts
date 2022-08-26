@@ -35,18 +35,26 @@ export class EmployeeComponent implements OnInit {
       SkillSets: ['',[Validators.required]],
     });
     this.token = localStorage.getItem("jwt");
-    this.getEmployeeList();
+    this.getEmployeeList(this.token);
   }
 
-  getEmployeeList()
+  getEmployeeList(token: any)
   {
-    this.EmployeeList1 = this.employeeService.getEmployeeList(this.token);
+    this.EmployeeList1 = this.employeeService.getEmployeeList(token);
     this.EmployeeList = this.EmployeeList1;
   }
 
   // Post
   AddEmployee(employee: Employee){
-    console.log("Add Employee Implementation");
+    const employee_data = this.employeeForm.value;
+    this.token = localStorage.getItem("jwt");
+    this.employeeService.postEmployeeData(employee_data,this.token).subscribe(
+      () => {
+        this.getEmployeeList(this.token);
+        this.employeeForm.reset();
+        this.toastr.success('Employee Added Successfully');
+      }
+    );
   }
 
 
@@ -74,7 +82,7 @@ export class EmployeeComponent implements OnInit {
       this.employeeService.deleteEmployeeById(id,this.token).subscribe(() =>{
         console.log(id);
         this.toastr.success('Employee Deleted Successfully');
-        this.getEmployeeList();
+        this.getEmployeeList(this.token);
       });
     }
   }
