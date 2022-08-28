@@ -46,5 +46,31 @@ export class EmployeeServiceService {
           'Authorization': 'Bearer '+ token,
         })};
         return this.http.post<Employee>(this.url + 'add-employee',employeeData,httpHeaders);
-  ``    }
+  ``}
+
+  updateEmployee(employee: Employee, token: any): Observable<Employee>{
+    const httpHeaders ={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'PUT',
+        'Authorization': 'Bearer '+ token,
+      })
+    };
+    return this.http.put<Employee>(this.url + 'update-employee-by-id/'+ employee.employeeID, employee, httpHeaders);
+  }
+
+  getEmployeeDetailsById(id: any,token:any): Observable<Employee>{
+    const httpHeaders = { 
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+        'Authorization': 'Bearer '+ token,
+      })};
+    return this.http.get<Employee>(this.url + 'get-employee-by-id/' + id,httpHeaders);
+
+  }
   }

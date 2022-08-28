@@ -18,9 +18,8 @@ export class EmployeeComponent implements OnInit {
   employeeForm: any;
   massage="";
   token:any;
-  // Will see these properties later
-  prodCategory = "";
-  productId = 0;
+
+  employeeId?: string = "";
   
   constructor(private formBuilder:FormBuilder,
     private employeeService:EmployeeServiceService,private router:Router,
@@ -60,19 +59,31 @@ export class EmployeeComponent implements OnInit {
 
   // Employee to Edit
   EmployeeDetailsToEdit(id: any){
-    console.log("Edit Employee Details Implementation");
-
-  }
-  // Get Details
-  GetEmployeeDetails(id: string){
-    console.log("Get Employee Details Implementation");
+    this.token = localStorage.getItem("jwt");
+    this.employeeService.getEmployeeDetailsById(id,this.token).subscribe(employeeResult => {
+      this.employeeId = employeeResult.employeeID;
+      this.employeeForm.controls['EmployeeName'].setValue(employeeResult.employeeName);
+      this.employeeForm.controls['Designation'].setValue(employeeResult.designation);
+      this.employeeForm.controls['ContactNo'].setValue(employeeResult.contactNo);
+      this.employeeForm.controls['EmailID'].setValue(employeeResult.emailID);
+      this.employeeForm.controls['SkillSets'].setValue(employeeResult.skillSets);
+    });
   }
 
   // Put
   UpdateEmployee(employee: Employee){
-    console.log("Update Employee Implementation");
+    this.token = localStorage.getItem("jwt");
+    employee.employeeID = this.employeeId;
+    const employee_Master = this.employeeForm.value;
+    this.employeeService.updateEmployee(employee_Master,this.token).subscribe(
+      () => {
+        this.toastr.success("Employee Data Updated Successfully");
+        this.employeeForm.reset();
+        this.getEmployeeList(this.token);
+      });
 
   }
+
   // Delete
   DeleteEmployee(id:any){
     console.log("Delete Employee Implementation");
