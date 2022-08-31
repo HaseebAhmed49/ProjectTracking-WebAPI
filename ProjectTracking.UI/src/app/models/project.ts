@@ -1,7 +1,7 @@
 import { UserStory } from "./userstory";
 
 export class Project{
-    projectId?: number;
+    projectID?: string;
     projectName?: string;
     startDate?: Date;
     endDate?: Date;

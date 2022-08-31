@@ -13,6 +13,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthGuard } from './guards/auth-guard.service';
 import { ToastrModule } from 'ngx-toastr';
+import { ProjectComponent } from './project/project/project.component';
 
 const routes:Routes = [
   {path:'',component:HomepageComponent},
@@ -31,7 +32,8 @@ export function tokenGetter()
     AppComponent,
     HomepageComponent,
     LoginComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
