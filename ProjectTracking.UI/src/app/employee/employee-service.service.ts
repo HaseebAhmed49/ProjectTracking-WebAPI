@@ -48,7 +48,7 @@ export class EmployeeServiceService {
         return this.http.post<Employee>(this.url + 'add-employee',employeeData,httpHeaders);
   ``}
 
-  updateEmployee(employee: Employee, token: any): Observable<Employee>{
+  updateEmployee(id:number,employee: Employee, token: any): Observable<Employee>{
     const httpHeaders ={
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export class EmployeeServiceService {
         'Authorization': 'Bearer '+ token,
       })
     };
-    return this.http.put<Employee>(this.url + 'update-employee-by-id/'+ employee.employeeID, employee, httpHeaders);
+    return this.http.put<Employee>(this.url + 'update-employee-by-id/'+ id, employee, httpHeaders);
   }
 
   getEmployeeDetailsById(id: any,token:any): Observable<Employee>{
