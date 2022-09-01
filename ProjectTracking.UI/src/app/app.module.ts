@@ -13,12 +13,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthGuard } from './guards/auth-guard.service';
 import { ToastrModule } from 'ngx-toastr';
-import { ProjectComponent } from './project/project/project.component';
+import { ProjectComponent } from './project/project.component';
 
 const routes:Routes = [
   {path:'',component:HomepageComponent},
   {path:'employee',component:EmployeeComponent},
   {path:'login',component:LoginComponent},
+  {path:'project',component:ProjectComponent},
 ];
 
 

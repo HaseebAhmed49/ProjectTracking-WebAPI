@@ -28,8 +28,8 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.projectForm = this.formBuilder.group({
       ProjectName: ['',[Validators.required]],
-      StartDate: ['',[Validators.required]],
-      EndDate: ['',[Validators.required]],
+      startDate: ['',[Validators.required]],
+      endDate: ['',[Validators.required]],
       Client: ['',[Validators.required]],
     });
     this.token = localStorage.getItem("jwt");
@@ -86,19 +86,19 @@ UpdateProject(project: Project){
 // Delete
 DeleteProject(id:any){
   console.log("Delete Employee Implementation");
-  this.token = localStorage.getItem("jwt");
-  if(confirm('Do you want to delete this Employee?')){
-    console.log(id);
-    this.employeeService.deleteEmployeeById(id,this.token).subscribe(() =>{
-      console.log(id);
-      this.toastr.success('Employee Deleted Successfully');
-      this.getEmployeeList(this.token);
-    });
-  }
+  // this.token = localStorage.getItem("jwt");
+  // if(confirm('Do you want to delete this Employee?')){
+  //   console.log(id);
+  //   this.employeeService.deleteEmployeeById(id,this.token).subscribe(() =>{
+  //     console.log(id);
+  //     this.toastr.success('Employee Deleted Successfully');
+  //     this.getEmployeeList(this.token);
+  //   });
+  // }
 }
 
 
-  Clear(employee: Employee){
+  Clear(project: Project){
     this.projectForm.reset();
   }
 
