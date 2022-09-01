@@ -7,9 +7,16 @@
         <ul class="navbar-nav mr-auto">
             <!-- <li *ngIf="isUserAuthenticated()" class="nav-item"> -->
                 <li class="nav-item">
+                    <a class="nav-link" routerLink="/login">Login</a>
+            </li>    
+                <li *ngIf="isUserAuthenticated()" class="nav-item">
                     <a class="nav-link" routerLink="/employee">Employee</a>
             </li>
+
             <li *ngIf="isUserAuthenticated()" class="nav-item">
+                <a class="nav-link" routerLink="/project">Project</a>
+        </li>
+        <li *ngIf="isUserAuthenticated()" class="nav-item">
                 <a class="nav-link" (click)="logOut()">Logout</a>
             </li>
         </ul>

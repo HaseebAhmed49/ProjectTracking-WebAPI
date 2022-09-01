@@ -71,6 +71,5 @@ export class EmployeeServiceService {
         'Authorization': 'Bearer '+ token,
       })};
     return this.http.get<Employee>(this.url + 'get-employee-by-id/' + id,httpHeaders);
-
   }
   }

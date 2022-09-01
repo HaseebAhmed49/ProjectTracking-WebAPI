@@ -43,58 +43,56 @@ export class ProjectComponent implements OnInit {
 
  // Post
  AddProject(project: Project){
-  // const employee_data = this.employeeForm.value;
-  // this.token = localStorage.getItem("jwt");
-  // this.employeeService.postEmployeeData(employee_data,this.token).subscribe(
-  //   () => {
-  //     this.getEmployeeList(this.token);
-  //     this.employeeForm.reset();
-  //     this.toastr.success('Employee Added Successfully');
-  //   }
-  // );
+  const project_data = this.projectForm.value;
+  this.token = localStorage.getItem("jwt");
+  this.projectService.postProjectData(project_data,this.token).subscribe(
+    () => {
+      this.getProjectList(this.token);
+      this.projectForm.reset();
+      this.toastr.success('Project Added Successfully');
+    }
+  );
 }
 
 
 // Project to Edit
 ProjectDetailsToEdit(id: any){
-  // this.token = localStorage.getItem("jwt");
-  // this.employeeService.getEmployeeDetailsById(id,this.token).subscribe(employeeResult => {
-  //   this.employeeId = employeeResult.employeeID;
-  //   console.log(this.employeeId);
-  //   this.employeeForm.controls['EmployeeName'].setValue(employeeResult.employeeName);
-  //   this.employeeForm.controls['Designation'].setValue(employeeResult.designation);
-  //   this.employeeForm.controls['ContactNo'].setValue(employeeResult.contactNo);
-  //   this.employeeForm.controls['EmailID'].setValue(employeeResult.emailID);
-  //   this.employeeForm.controls['SkillSets'].setValue(employeeResult.skillSets);
-  // });
+  this.token = localStorage.getItem("jwt");
+  this.projectService.getProjectDetailsById(id,this.token).subscribe(projectResult => {
+    this.projectID = projectResult.projectID;
+    console.log(this.projectID);
+    this.projectForm.controls['ProjectName'].setValue(projectResult.projectName);
+    this.projectForm.controls['startDate'].setValue(projectResult.startDate);
+    this.projectForm.controls['endDate'].setValue(projectResult.endDate);
+    this.projectForm.controls['Client'].setValue(projectResult.clientName);
+  });
 }
 
 // Put
 UpdateProject(project: Project){
-  // this.token = localStorage.getItem("jwt");
-  // // employee.employeeID = this.employeeId;
-  // // console.log(employee.employeeID);
-  // const project_Master = this.projectForm.value;
-  // this.employeeService.updateEmployee(Number(this.employeeId),employee_Master,this.token).subscribe(
-  //   () => {
-  //     this.toastr.success("Employee Data Updated Successfully");
-  //     this.employeeForm.reset();
-  //     this.getEmployeeList(this.token);
-  //   });
+  this.token = localStorage.getItem("jwt");
+  project.projectID = this.projectID;
+  const project_Master = this.projectForm.value;
+  this.projectService.updateProject(project_Master,this.token).subscribe(
+    () => {
+      this.toastr.success("Project Data Updated Successfully");
+      this.projectForm.reset();
+      this.getProjectList(this.token);
+    });
 }
 
 // Delete
 DeleteProject(id:any){
   console.log("Delete Employee Implementation");
-  // this.token = localStorage.getItem("jwt");
-  // if(confirm('Do you want to delete this Employee?')){
-  //   console.log(id);
-  //   this.employeeService.deleteEmployeeById(id,this.token).subscribe(() =>{
-  //     console.log(id);
-  //     this.toastr.success('Employee Deleted Successfully');
-  //     this.getEmployeeList(this.token);
-  //   });
-  // }
+  this.token = localStorage.getItem("jwt");
+  if(confirm('Do you want to delete this Employee?')){
+    console.log(id);
+    this.projectService.deleteProjectById(id,this.token).subscribe(() =>{
+      console.log(id);
+      this.toastr.success('Project Deleted Successfully');
+      this.getProjectList(this.token);
+    });
+  }
 }
 
 
