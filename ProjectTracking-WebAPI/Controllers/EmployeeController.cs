@@ -83,7 +83,7 @@ namespace ProjectTracking_WebAPI.Controllers
             }
         }
 
-        [HttpPut("update-employee-by-id/{id}")]
+        [HttpPost("update-employee-by-id/{id}")]
         public async Task<IActionResult> UpdateEmployeeById(int id,[FromBody] EmployeeVM employee)
         {
             try

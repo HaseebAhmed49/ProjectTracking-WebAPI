@@ -62,7 +62,6 @@ export class EmployeeComponent implements OnInit {
     this.token = localStorage.getItem("jwt");
     this.employeeService.getEmployeeDetailsById(id,this.token).subscribe(employeeResult => {
       this.employeeId = employeeResult.employeeID;
-      console.log(this.employeeId);
       this.employeeForm.controls['EmployeeName'].setValue(employeeResult.employeeName);
       this.employeeForm.controls['Designation'].setValue(employeeResult.designation);
       this.employeeForm.controls['ContactNo'].setValue(employeeResult.contactNo);
@@ -74,10 +73,9 @@ export class EmployeeComponent implements OnInit {
   // Put
   UpdateEmployee(employee: Employee){
     this.token = localStorage.getItem("jwt");
-    // employee.employeeID = this.employeeId;
-    // console.log(employee.employeeID);
+    employee.employeeID = this.employeeId;
     const employee_Master = this.employeeForm.value;
-    this.employeeService.updateEmployee(Number(this.employeeId),employee_Master,this.token).subscribe(
+    this.employeeService.updateEmployee(employee_Master,this.token).subscribe(
       () => {
         this.toastr.success("Employee Data Updated Successfully");
         this.employeeForm.reset();
