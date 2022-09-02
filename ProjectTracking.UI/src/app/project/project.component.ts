@@ -30,7 +30,7 @@ export class ProjectComponent implements OnInit {
       ProjectName: ['',[Validators.required]],
       startDate: ['',[Validators.required]],
       endDate: ['',[Validators.required]],
-      Client: ['',[Validators.required]],
+      ClientName: ['',[Validators.required]],
     });
     this.token = localStorage.getItem("jwt");
     this.getProjectList(this.token);
@@ -60,11 +60,14 @@ ProjectDetailsToEdit(id: any){
   this.token = localStorage.getItem("jwt");
   this.projectService.getProjectDetailsById(id,this.token).subscribe(projectResult => {
     this.projectID = projectResult.projectID;
-    console.log(this.projectID);
+    console.log('Edit Method'+this.projectID);
+    console.log(projectResult.startDate);
+    console.log(projectResult.endDate);
+    
     this.projectForm.controls['ProjectName'].setValue(projectResult.projectName);
     this.projectForm.controls['startDate'].setValue(projectResult.startDate);
     this.projectForm.controls['endDate'].setValue(projectResult.endDate);
-    this.projectForm.controls['Client'].setValue(projectResult.clientName);
+    this.projectForm.controls['ClientName'].setValue(projectResult.clientName);
   });
 }
 
@@ -72,6 +75,7 @@ ProjectDetailsToEdit(id: any){
 UpdateProject(project: Project){
   this.token = localStorage.getItem("jwt");
   project.projectID = this.projectID;
+  console.log('Update Method'+this.projectID);
   const project_Master = this.projectForm.value;
   this.projectService.updateProject(project_Master,this.token).subscribe(
     () => {

@@ -57,6 +57,7 @@ export class ProjectService {
         'Authorization': 'Bearer '+ token,
       })
     };
+    console.log(project.projectID);
     return this.http.put<Project>(this.url + 'update-project-by-id/'+ project.projectID, project, httpHeaders);
   }
 
