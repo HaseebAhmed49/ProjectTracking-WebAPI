@@ -97,7 +97,7 @@ namespace ProjectTracking_WebAPI.Data
                         UserStoryID = 2,
                         TaskCompletion = "In Progress",
                     });
-                    context.SaveChanges();
+                  //  context.SaveChanges();
                 }
             }
         }
