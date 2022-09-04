@@ -61,6 +61,7 @@ export class EmployeeComponent implements OnInit {
   EmployeeDetailsToEdit(id: any){
     this.token = localStorage.getItem("jwt");
     this.employeeService.getEmployeeDetailsById(id,this.token).subscribe(employeeResult => {
+      console.log(employeeResult.employeeID+'Employee Details to Edit');
       this.employeeId = employeeResult.employeeID;
       this.employeeForm.controls['EmployeeName'].setValue(employeeResult.employeeName);
       this.employeeForm.controls['Designation'].setValue(employeeResult.designation);
@@ -73,15 +74,14 @@ export class EmployeeComponent implements OnInit {
   // Put
   UpdateEmployee(employee: Employee){
     this.token = localStorage.getItem("jwt");
-    employee.employeeID = this.employeeId;
+    console.log(this.employeeId+' Update Employee');
     const employee_Master = this.employeeForm.value;
-    this.employeeService.updateEmployee(employee_Master,this.token).subscribe(
-      () => {
-        this.toastr.success("Employee Data Updated Successfully");
-        this.employeeForm.reset();
-        this.getEmployeeList(this.token);
-      });
-
+      this.employeeService.updateEmployee(Number(this.employeeId),employee_Master,this.token).subscribe(
+        () => {
+          this.toastr.success("Employee Data Updated Successfully");
+          this.employeeForm.reset();
+          this.getEmployeeList(this.token);
+        });
   }
 
   // Delete

@@ -22,56 +22,57 @@
         <form class="form-horizontal" [formGroup]="projectForm">
             <h1 style="text-align: center;"> Welcome to Project CRUD with .NET Web API</h1>
             <div >
-                <div class="col-3"></div>
-                <div class="col-6 center">
-                    <div class="form-group">
-                        <label for="name" class="control-label col-sm-2">Project Name:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtProjectName" formControlName="ProjectName" placeholder="Name of Project">
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="form-group">
-                        <label for="startDate" class="control-label col-sm-2">Start Date:</label>
-                        <div class="col-sm-10">
-                            <input type="date" class="form-control" id="txtStartDate" formControlName="startDate" placeholder="Start Date of Project">
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="form-group">
-                        <label for="endDate" class="control-label col-sm-2">End Date:</label>
-                        <div class="col-sm-10">
-                            <input type="date" class="form-control" id="txtEndDate" formControlName="endDate" placeholder="End Date of Project">
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="form-group">
-                        <label for="client" class="control-label col-sm-2">Client:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtClient" formControlName="ClientName" placeholder="Client Name">
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="form-group">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <button class="btn btn-primary" (click)="AddProject(projectForm.Value)">Add New Project</button>
-                                </div>
-                                <div class="col-sm">
-                                    <button class="btn btn-primary" (click)="UpdateProject(projectForm.Value)">Update Project</button>
-                                </div>
-                                <div class="col-sm">
-                                    <button class="btn btn-primary" (click)="Clear(projectForm.Value)">Clear</button>
-                                </div>
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-6 center">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-sm-2">Project Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txtProjectName" formControlName="ProjectName" placeholder="Name of Project">
                             </div>
                         </div>
                         <br/>
-                        </div>        
+                        <div class="form-group">
+                            <label for="startDate" class="control-label col-sm-2">Start Date:</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="txtStartDate" formControlName="startDate" placeholder="Start Date of Project">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label for="endDate" class="control-label col-sm-2">End Date:</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="txtEndDate" formControlName="endDate" placeholder="End Date of Project">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label for="client" class="control-label col-sm-2">Client:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txtClient" formControlName="ClientName" placeholder="Client Name">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <button class="btn btn-primary" (click)="AddProject(projectForm.Value)">Add New Project</button>
+                                    </div>
+                                    <div class="col-sm">
+                                        <button class="btn btn-primary" (click)="UpdateProject(projectForm.Value)">Update Project</button>
+                                    </div>
+                                    <div class="col-sm">
+                                        <button class="btn btn-primary" (click)="Clear(projectForm.Value)">Clear</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            </div>
+                    </div>
+                    <div class="col-3"></div>    
                 </div>
-                <div class="col-3"></div>
-
-                          <div>
+                  <div>
                     <div class="alert-success alert" style="text-align: center;"><b>Project List</b></div>
                     <div class="table-responsive" style="text-align: center;">
                         <table class="table table-hover table-bordered table-striped">
@@ -96,7 +97,7 @@
                                     <td>{{ prj.clientName }}</td>
                                     <td><button class="btn btn-primary" type="button" matToolTip="Click Edit Button" (click)="ProjectDetailsToEdit(prj.projectID)">Edit</button>
                                         |
-                                        <button class="btn1" type="button" matToolTip="Click Delete Button" (click)="DeleteProject(prj.projectID)">Delete</button>                                
+                                        <button class="btn btn-danger" type="button" matToolTip="Click Delete Button" (click)="DeleteProject(prj.projectID)">Delete</button>                                
                                     </td>
                                 </tr>
                             </tbody>

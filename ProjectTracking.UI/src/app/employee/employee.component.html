@@ -25,6 +25,11 @@
 <form class="form-horizontal" [formGroup]="employeeForm">
     <h1 style="text-align: center;"> Welcome to Employee CRUD with .NET Web API</h1>
     <div>
+        <div class="row">
+<div class="col-3">
+
+</div>
+<div class="col-6 center">
     <div class="form-group">
         <label for="name" class="control-label col-sm-2">Employee Name:</label>
         <div class="col-sm-10">
@@ -75,6 +80,10 @@
             </div>
         </div>
         <br/>
+
+</div>
+<div class="col-3"></div>
+        </div>
         </div>
         <div>
             <div class="alert-success alert" style="text-align: center;"><b>Employee List</b></div>
@@ -101,9 +110,9 @@
                             <td>{{ emp.contactNo }}</td>
                             <td>{{ emp.emailID }}</td>
                             <td>{{ emp.skillSets }}</td>
-                            <td><button class="btn1" type="button" matToolTip="Click Edit Button" (click)="EmployeeDetailsToEdit(emp.employeeID)">Edit</button>
+                            <td><button class="btn btn-primary" type="button" matToolTip="Click Edit Button" (click)="EmployeeDetailsToEdit(emp.employeeID)">Edit</button>
                                 |
-                                <button class="btn1" type="button" matToolTip="Click Delete Button" (click)="DeleteEmployee(emp.employeeID)">Delete</button>                                
+                                <button class="btn btn-danger" type="button" matToolTip="Click Delete Button" (click)="DeleteEmployee(emp.employeeID)">Delete</button>                                
                             </td>
                         </tr>
                     </tbody>
