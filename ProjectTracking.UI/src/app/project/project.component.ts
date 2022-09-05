@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
 import { Project } from '../models/project';
+import moment from "moment";
+
 
 @Component({
   selector: 'app-project',
@@ -65,8 +67,8 @@ ProjectDetailsToEdit(id: any){
     console.log(projectResult.endDate);
     
     this.projectForm.controls['ProjectName'].setValue(projectResult.projectName);
-    this.projectForm.controls['startDate'].setValue(projectResult.startDate);
-    this.projectForm.controls['endDate'].setValue(projectResult.endDate);
+    this.projectForm.controls['startDate'].setValue(moment(projectResult.startDate?.toString(),'').utc().format('YYYY-MM-DD'));
+    this.projectForm.controls['endDate'].setValue(moment(projectResult.endDate?.toString(),'').utc().format('YYYY-MM-DD'));
     this.projectForm.controls['ClientName'].setValue(projectResult.clientName);
   });
 }
@@ -120,3 +122,7 @@ DeleteProject(id:any){
     }
   }
 }
+function moment(startDate: string | undefined, arg1: string): any {
+  throw new Error('Function not implemented.');
+}
+
