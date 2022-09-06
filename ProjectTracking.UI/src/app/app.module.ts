@@ -14,12 +14,14 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { AuthGuard } from './guards/auth-guard.service';
 import { ToastrModule } from 'ngx-toastr';
 import { ProjectComponent } from './project/project.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes:Routes = [
-  {path:'',component:HomepageComponent},
-  {path:'employee',component:EmployeeComponent},
   {path:'login',component:LoginComponent},
+  {path:'',component:LoginComponent},
+  {path:'employee',component:EmployeeComponent},
   {path:'project',component:ProjectComponent},
+  {path:'signup',component:SignupComponent}
 ];
 
 
@@ -34,7 +36,8 @@ export function tokenGetter()
     HomepageComponent,
     LoginComponent,
     EmployeeComponent,
-    ProjectComponent
+    ProjectComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

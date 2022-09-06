@@ -1,29 +1,29 @@
 <div class="sidenav">
     <div class="login-main-text">
-       <h2>Project Tracking Application <br> Login Page</h2>
-       <p>Login or register from here to access.</p>
+       <h2>Project Tracking Application <br> SignUp Page</h2>
     </div>
  </div>
  <div class="main">
     <div class="col-md-6 col-sm-12">
        <div class="login-form">
-        <form class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+        <form class="form-signin" #signupForm="ngForm" (ngSubmit)="signup(signupForm)">
             <div class="container-fluid">
-                <h2 class="form-signin-heading center">Login</h2>
-                <div class="alert alert-danger" *ngIf="invalidLogin">Invalid Username and password.</div>
-                <!-- <br/>
+                <h2 class="form-signin-heading center"> Register Here </h2>
+                <div class="alert alert-danger" *ngIf="invalidPassword">Invalid Username and password.</div>
+                <br/>
                 <label for="name" class="sr-only">Name</label>
                 <input type="text" id="name" name="name" ngModel class="form-control" placeholder="Name" required autofocus>
-                <br/> -->
+                <br/>
+                <label for="userName" class="sr-only">User Name</label>
+                <input type="text" id="userName" name="userName" ngModel class="form-control" placeholder="User Name" required autofocus>
+                <br/>
                 <label for="email" class="sr-only">Email</label>
                 <input type="email" id="email" name="email" ngModel class="form-control" placeholder="Email" required>
                 <br/>
                 <label for="password" class="sr-only">Password</label>
                 <input type="password" id="password" name="password" ngModel class="form-control" placeholder="Password" required>
                 <br/>
-                <button class="btn btn-lg btn-success btn-block center" type="submit">Login</button>
-                 | 
-                <a class="btn btn-lg btn-warning btn-block center" routerLink="/signup">Sign Up</a>
+                <button class="btn btn-lg btn-primary btn-block center" type="submit">Sign Up</button>
             </div>
         </form>
        </div>

@@ -51,6 +51,7 @@ namespace ProjectTracking_WebAPI.Controllers
 //        [Route("login")]
         public async Task<IActionResult> Authenticate([FromBody] UserVM users)
         {
+            users.Name = "Dummy";
             var validUser = await _userManager.FindByEmailAsync(users.Email);
             if (validUser == null) return Unauthorized("Incorrect username or password");
             if(validUser != null)
@@ -104,26 +105,25 @@ namespace ProjectTracking_WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("sign-up")]
-        public async Task<IActionResult> Register(UserVM userVM)
+        public async Task<IActionResult> Register([FromBody] SignUpVM signupVM)
         {
             if (!ModelState.IsValid) return BadRequest("Check User Details again!");
-            var user = await _userManager.FindByEmailAsync(userVM.Email);
+            var user = await _userManager.FindByEmailAsync(signupVM.Email);
             if (user != null)
             {
-                return BadRequest($"User with this email {userVM.Email} already exists");
+                return BadRequest($"User with this email {signupVM.Email} already exists");
             }
 
             var newAdminUser = new Users()
             {
-                Name = userVM.Name,
-                UserName = userVM.Name,
-                Email = userVM.Email,
+                Name = signupVM.Name,
+                UserName = signupVM.UserName,
+                Email = signupVM.Email,
                 EmailConfirmed = true,
             };
-            await _userManager.CreateAsync(newAdminUser, userVM.Password);
-            await _userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+            await _userManager.CreateAsync(newAdminUser, signupVM.Password);
+            await _userManager.AddToRoleAsync(newAdminUser, UserRoles.User);
             return Ok(newAdminUser);
         }
     }
 }
-
