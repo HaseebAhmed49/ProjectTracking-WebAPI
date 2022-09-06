@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
 import { Project } from '../models/project';
-import moment from "moment";
+import moment123 from 'moment';
 
 
 @Component({
@@ -64,11 +64,10 @@ ProjectDetailsToEdit(id: any){
     this.projectID = projectResult.projectID;
     console.log('Edit Method'+this.projectID);
     console.log(projectResult.startDate);
-    console.log(projectResult.endDate);
-    
+    console.log(projectResult.endDate);    
     this.projectForm.controls['ProjectName'].setValue(projectResult.projectName);
-    this.projectForm.controls['startDate'].setValue(moment(projectResult.startDate?.toString(),'').utc().format('YYYY-MM-DD'));
-    this.projectForm.controls['endDate'].setValue(moment(projectResult.endDate?.toString(),'').utc().format('YYYY-MM-DD'));
+    this.projectForm.controls['startDate'].setValue(projectResult.startDate?.toLocaleString());
+    this.projectForm.controls['endDate'].setValue(projectResult.endDate?.toLocaleString());
     this.projectForm.controls['ClientName'].setValue(projectResult.clientName);
   });
 }
