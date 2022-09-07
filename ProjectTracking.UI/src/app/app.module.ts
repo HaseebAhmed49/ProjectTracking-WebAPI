@@ -15,13 +15,15 @@ import { AuthGuard } from './guards/auth-guard.service';
 import { ToastrModule } from 'ngx-toastr';
 import { ProjectComponent } from './project/project.component';
 import { SignupComponent } from './signup/signup.component';
+import { ProjectTaskComponent } from './project-task/project-task.component';
 
 const routes:Routes = [
   {path:'login',component:LoginComponent},
   {path:'',component:LoginComponent},
   {path:'employee',component:EmployeeComponent},
   {path:'project',component:ProjectComponent},
-  {path:'signup',component:SignupComponent}
+  {path:'signup',component:SignupComponent},
+  {path:'projecttask',component:ProjectTaskComponent}
 ];
 
 
@@ -37,7 +39,8 @@ export function tokenGetter()
     LoginComponent,
     EmployeeComponent,
     ProjectComponent,
-    SignupComponent
+    SignupComponent,
+    ProjectTaskComponent
   ],
   imports: [
     BrowserModule,

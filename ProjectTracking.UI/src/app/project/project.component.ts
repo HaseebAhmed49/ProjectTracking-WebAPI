@@ -8,7 +8,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Project } from '../models/project';
 import moment123 from 'moment';
 
-
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
