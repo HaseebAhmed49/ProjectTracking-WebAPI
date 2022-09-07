@@ -47,7 +47,7 @@ export class ProjectService {
         return this.http.post<Project>(this.url + 'add-project',projectData,httpHeaders);
   ``}
 
-  updateProject(project: Project, token: any): Observable<Project>{
+  updateProject(id:number,project: Project, token: any): Observable<Project>{
     const httpHeaders ={
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -57,8 +57,7 @@ export class ProjectService {
         'Authorization': 'Bearer '+ token,
       })
     };
-    console.log(project.projectID);
-    return this.http.put<Project>(this.url + 'update-project-by-id/'+ project.projectID, project, httpHeaders);
+    return this.http.put<Project>(this.url + 'update-project-by-id/'+ id, project, httpHeaders);
   }
 
   getProjectDetailsById(id: any,token:any): Observable<Project>{

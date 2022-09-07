@@ -52,6 +52,8 @@ export class ProjectComponent implements OnInit {
       this.getProjectList(this.token);
       this.projectForm.reset();
       this.toastr.success('Project Added Successfully');
+    }, err => {
+      this.toastr.warning('Error in Add Project');
     }
   );
 }
@@ -63,8 +65,6 @@ ProjectDetailsToEdit(id: any){
   this.projectService.getProjectDetailsById(id,this.token).subscribe(projectResult => {
     this.projectID = projectResult.projectID;
     console.log('Edit Method'+this.projectID);
-    console.log(projectResult.startDate);
-    console.log(projectResult.endDate);    
     this.projectForm.controls['ProjectName'].setValue(projectResult.projectName);
     this.projectForm.controls['startDate'].setValue(projectResult.startDate?.toLocaleString());
     this.projectForm.controls['endDate'].setValue(projectResult.endDate?.toLocaleString());
@@ -75,10 +75,9 @@ ProjectDetailsToEdit(id: any){
 // Put
 UpdateProject(project: Project){
   this.token = localStorage.getItem("jwt");
-  project.projectID = this.projectID;
-  console.log('Update Method'+this.projectID);
+  console.log('Update Method '+this.projectID);
   const project_Master = this.projectForm.value;
-  this.projectService.updateProject(project_Master,this.token).subscribe(
+  this.projectService.updateProject(Number(this.projectID),project_Master,this.token).subscribe(
     () => {
       this.toastr.success("Project Data Updated Successfully");
       this.projectForm.reset();
