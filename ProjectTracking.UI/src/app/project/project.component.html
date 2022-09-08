@@ -12,6 +12,10 @@
                 <!-- This is Employee Button -->
                 <a class="nav-link" routerLink="/employee">Employee</a>
             </li>
+            <li *ngIf="isUserAuthenticated()" class="nav-item">
+                <!-- This is Employee Button -->
+                <a class="nav-link" routerLink="/projecttask">Project Task</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" (click)="logOut()">Logout</a>
             </li>

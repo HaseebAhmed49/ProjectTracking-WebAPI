@@ -66,6 +66,17 @@
                         </div>
                         <br/>
                         <div class="form-group">
+                            <div class="col-sm-10">
+                                <select #employee (change)="onSelected(employee.value)" class="form-control">
+                                    <option>--Select--</option>
+                                    <option [value]="emp.employeeID" *ngFor="let emp of employeeList">
+                                        {{emp.employeeName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm">

@@ -23,6 +23,19 @@ export class ProjecttaskService {
       return this.http.get<ProjectTask[]>(this.url + 'get-all-project-tasks',httpHeaders);
   }
 
+  getEmployeeListForProjectTask(token:string):Observable<any[]> {
+    const httpHeaders = { 
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+        'Authorization': 'Bearer '+ token,
+      })};
+      return this.http.get<any[]>(configUrl.apiServer.url + '/api/Employee/get-all-employees',httpHeaders);
+  }
+
+
   deleteProjectTaskById(id: number,token:any): Observable<number>{
     const httpHeaders ={
       headers: new HttpHeaders({

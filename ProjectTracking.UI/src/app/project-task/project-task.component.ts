@@ -22,21 +22,35 @@ export class ProjectTaskComponent implements OnInit {
   token:any;
 
   projectTaskID?: string = "";
+  employeeList: any;
 
+  selectedEmployee = '';
+	onSelected(value:string): void {
+		this.selectedEmployee = value;
+    console.log(this.selectedEmployee);
+	}
   constructor(private formBuilder:FormBuilder,
     private projecttaskService:ProjecttaskService,private router:Router,
     private jwtHelper: JwtHelperService, private toastr:ToastrService) { }
 
+
   ngOnInit(): void {
+
+    this.token = localStorage.getItem("jwt");
+
+    this.projecttaskService.getEmployeeListForProjectTask(this.token).subscribe((data:any)=>{
+      this.employeeList = data;
+    })
+
     this.projecttaskForm = this.formBuilder.group({
       assignedTo: ['',[Validators.required]],
       taskStartDate: ['',[Validators.required]],
       taskEndDate: ['',[Validators.required]],
       taskCompletion: ['',[Validators.required]],
       employeeID: ['',[Validators.required]],
-      userStoryID: ['',[Validators.required]],
+      userStoryID: ['',[Validators.required]],      
     });
-    this.token = localStorage.getItem("jwt");
+
     this.getProjectTaskList(this.token);
   }
 
@@ -46,7 +60,7 @@ export class ProjectTaskComponent implements OnInit {
   }
 
  // Post
- AddProjectTask(projectTask: ProjectTask){
+ AddProjectTask(_projectTask: ProjectTask){
   const projecttask_data = this.projecttaskForm.value;
   this.token = localStorage.getItem("jwt");
   this.projecttaskService.postProjectTaskData(projecttask_data,this.token).subscribe(
@@ -54,7 +68,7 @@ export class ProjectTaskComponent implements OnInit {
       this.getProjectTaskList(this.token);
       this.projecttaskForm.reset();
       this.toastr.success('Project Task Added Successfully');
-    }, err => {
+    }, _err => {
       this.toastr.warning('Error in Add Project Task');
     }
   );
@@ -75,7 +89,7 @@ ProjectTaskDetailsToEdit(id: any){
 }
 
 // Put
-UpdateProjectTask(project: Project){
+UpdateProjectTask(_project: Project){
   this.token = localStorage.getItem("jwt");
   console.log('Update Method '+this.projectTaskID);
   const projecttask_Master = this.projecttaskForm.value;
@@ -102,7 +116,7 @@ DeleteProjectTask(id:any){
 }
 
 
-  Clear(project: Project){
+  Clear(_project: Project){
     this.projecttaskForm.reset();
   }
 
