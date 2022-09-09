@@ -23,6 +23,7 @@ export class ProjectTaskComponent implements OnInit {
 
   projectTaskID?: string = "";
   employeeList: any;
+  userStoryList:any;
 
   selectedEmployee = '';
 	onSelected(value:string): void {
@@ -40,7 +41,11 @@ export class ProjectTaskComponent implements OnInit {
 
     this.projecttaskService.getEmployeeListForProjectTask(this.token).subscribe((data:any)=>{
       this.employeeList = data;
-    })
+    });
+
+    this.projecttaskService.getUserStoryListForProjectTask(this.token).subscribe((data:any)=>{
+      this.userStoryList = data;
+    });
 
     this.projecttaskForm = this.formBuilder.group({
       assignedTo: ['',[Validators.required]],

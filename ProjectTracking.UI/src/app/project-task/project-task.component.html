@@ -55,19 +55,7 @@
                         <br/>
                         <div class="form-group">
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="txtEmployeeId" formControlName="employeeID" placeholder="Employee ID">
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="form-group">
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="txtuserStoryId" formControlName="userStoryID" placeholder="User Story ID">
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="form-group">
-                            <div class="col-sm-10">
-                                <select #employee (change)="onSelected(employee.value)" class="form-control">
+                                <select #employee (change)="onSelected(employee.value)" formControlName="employeeID" class="form-control">
                                     <option>--Select--</option>
                                     <option [value]="emp.employeeID" *ngFor="let emp of employeeList">
                                         {{emp.employeeName}}
@@ -76,6 +64,29 @@
                             </div>
                         </div>
                         <br/>
+                        <!-- <div class="form-group">
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txtEmployeeId" formControlName="employeeID" placeholder="Employee ID">
+                            </div>
+                        </div>
+                        <br/> -->
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <select #usrStory (change)="onSelected(usrStory.value)" formControlName="userStoryID" class="form-control">
+                                    <option>--Select--</option>
+                                    <option [value]="userStory.userStoryID" *ngFor="let userStory of userStoryList">
+                                        {{userStory.story}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <!-- <div class="form-group">
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txtuserStoryId" formControlName="userStoryID" placeholder="User Story ID">
+                            </div>
+                        </div>
+                        <br/> -->
                         <div class="form-group">
                             <div class="container">
                                 <div class="row">
