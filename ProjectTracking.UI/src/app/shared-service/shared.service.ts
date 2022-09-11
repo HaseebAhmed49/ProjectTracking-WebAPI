@@ -36,4 +36,15 @@ export class SharedService {
       return this.http.get<any[]>(configUrl.apiServer.url + '/api/UserStory/get-all-user-stories',httpHeaders);
   }
 
+  getProjectList(token:string):Observable<any[]> {
+    const httpHeaders = { 
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+        'Authorization': 'Bearer '+ token,
+      })};
+      return this.http.get<any[]>(configUrl.apiServer.url + '/api/Projects/get-all-projects',httpHeaders);
+  }
 }

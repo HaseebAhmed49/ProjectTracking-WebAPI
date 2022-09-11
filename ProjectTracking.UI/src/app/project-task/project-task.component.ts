@@ -54,8 +54,8 @@ export class ProjectTaskComponent implements OnInit {
       taskStartDate: ['',[Validators.required]],
       taskEndDate: ['',[Validators.required]],
       taskCompletion: ['',[Validators.required]],
-      employeeID: ['--SelectEmployee--',[Validators.required]],
-      userStoryID: ['--Select User Story--',[Validators.required]],      
+      employeeID: ['',[Validators.required]],
+      userStoryID: ['',[Validators.required]],      
     });
 
     this.getProjectTaskList(this.token);
@@ -141,4 +141,5 @@ DeleteProjectTask(id:any){
     else{
       return false;
     }
-  }}
+  }
+}

@@ -16,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProjectComponent } from './project/project.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProjectTaskComponent } from './project-task/project-task.component';
+import { UserStoryComponent } from './user-story/user-story.component';
 
 const routes:Routes = [
   {path:'login',component:LoginComponent},
@@ -23,7 +24,8 @@ const routes:Routes = [
   {path:'employee',component:EmployeeComponent},
   {path:'project',component:ProjectComponent},
   {path:'signup',component:SignupComponent},
-  {path:'projecttask',component:ProjectTaskComponent}
+  {path:'projecttask',component:ProjectTaskComponent},
+  {path:'userstory',component:UserStoryComponent},
 ];
 
 
@@ -40,7 +42,8 @@ export function tokenGetter()
     EmployeeComponent,
     ProjectComponent,
     SignupComponent,
-    ProjectTaskComponent
+    ProjectTaskComponent,
+    UserStoryComponent
   ],
   imports: [
     BrowserModule,

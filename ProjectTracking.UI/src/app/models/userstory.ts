@@ -2,9 +2,9 @@ import { Project } from "./project";
 import { ProjectTask } from "./projecttask";
 
 export class UserStory{
-    userStoryId?: number;
+    userStoryID?: string;
     story?: string;
-    projectId?: number;
+    projectID?: string;
     project?: Project;
- //   projectTasks[]: ProjectTask;
+ //   projectTasks: ProjectTask;
 }
