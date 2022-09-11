@@ -16,6 +16,10 @@
                 <!-- This is Employee Button -->
                 <a class="nav-link" routerLink="/project">Project</a>
             </li>
+            <li *ngIf="isUserAuthenticated()" class="nav-item">
+                <!-- This is Employee Button -->
+                <a class="nav-link" routerLink="/userstory">User Story</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" (click)="logOut()">Logout</a>
             </li>
@@ -64,12 +68,6 @@
                             </div>
                         </div>
                         <br/>
-                        <!-- <div class="form-group">
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="txtEmployeeId" formControlName="employeeID" placeholder="Employee ID">
-                            </div>
-                        </div>
-                        <br/> -->
                         <div class="form-group">
                             <div class="col-sm-10">
                                 <select #usrStory (change)="onSelected(usrStory.value)" formControlName="userStoryID" class="form-control">
@@ -81,22 +79,14 @@
                             </div>
                         </div>
                         <br/>
-                        <!-- <div class="form-group">
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="txtuserStoryId" formControlName="userStoryID" placeholder="User Story ID">
-                            </div>
-                        </div>
-                        <br/> -->
                         <div class="form-group">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm">
                                         <button class="btn btn-primary" (click)="AddProjectTask(projecttaskForm.Value)">Add New Project Task</button>
-                                    </div>
-                                    <div class="col-sm">
+                                        |
                                         <button class="btn btn-warning" (click)="UpdateProjectTask(projecttaskForm.Value)">Update Project Task</button>
-                                    </div>
-                                    <div class="col-sm">
+                                        |
                                         <button class="btn btn-danger" (click)="Clear(projecttaskForm.Value)">Clear</button>
                                     </div>
                                 </div>

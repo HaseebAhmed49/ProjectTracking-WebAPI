@@ -62,7 +62,7 @@ AddUserStory(userStoryData: UserStory){
   console.log(this.userstoryForm.value);
   const userstory_data = this.userstoryForm.value;
   this.token = localStorage.getItem("jwt");
-  this.userStoryService.postUserStoryData(userStoryData,this.token).subscribe(
+  this.userStoryService.postUserStoryData(userstory_data,this.token).subscribe(
     () => {
       this.getUserStoryList(this.token);
       this.userstoryForm.reset();

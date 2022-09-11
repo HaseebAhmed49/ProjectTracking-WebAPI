@@ -16,6 +16,10 @@
                 <!-- This is Employee Button -->
                 <a class="nav-link" routerLink="/projecttask">Project Task</a>
             </li>
+            <li *ngIf="isUserAuthenticated()" class="nav-item">
+                <!-- This is Employee Button -->
+                <a class="nav-link" routerLink="/userstory">User Story</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" (click)="logOut()">Logout</a>
             </li>
@@ -62,11 +66,9 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <button class="btn btn-primary" (click)="AddProject(projectForm.Value)">Add New Project</button>
-                                    </div>
-                                    <div class="col-sm">
+                                        |
                                         <button class="btn btn-warning" (click)="UpdateProject(projectForm.Value)">Update Project</button>
-                                    </div>
-                                    <div class="col-sm">
+                                        |
                                         <button class="btn btn-danger" (click)="Clear(projectForm.Value)">Clear</button>
                                     </div>
                                 </div>

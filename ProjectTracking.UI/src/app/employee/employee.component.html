@@ -15,6 +15,10 @@
             <li *ngIf="isUserAuthenticated()" class="nav-item">
                 <a class="nav-link" routerLink="/project">Project</a>
             </li>
+            <li *ngIf="isUserAuthenticated()" class="nav-item">
+                <!-- This is Employee Button -->
+                <a class="nav-link" routerLink="/userstory">User Story</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" (click)="logOut()">Logout</a>
             </li>
@@ -70,11 +74,9 @@
             <div class="row">
                 <div class="col-sm">
                     <button class="btn btn-primary" (click)="AddEmployee(employeeForm.Value)">Add New Employee</button>
-                </div>
-                <div class="col-sm">
+                    |
                     <button class="btn btn-warning" (click)="UpdateEmployee(employeeForm.Value)">Update Employee</button>
-                </div>
-                <div class="col-sm">
+                    |
                     <button class="btn btn-danger" (click)="Clear(employeeForm.Value)">Clear</button>
                 </div>
             </div>
