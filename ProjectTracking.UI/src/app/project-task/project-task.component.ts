@@ -7,6 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
 import { Project } from '../models/project';
 import { ProjectTask } from '../models/projecttask';
+import { SharedService } from '../shared-service/shared.service';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class ProjectTaskComponent implements OnInit {
     console.log(this.selectedEmployee);
 	}
   constructor(private formBuilder:FormBuilder,
-    private projecttaskService:ProjecttaskService,private router:Router,
+    private projecttaskService:ProjecttaskService,
+    private router:Router,private sharedService:SharedService,
     private jwtHelper: JwtHelperService, private toastr:ToastrService) { }
 
 
@@ -39,11 +41,11 @@ export class ProjectTaskComponent implements OnInit {
 
     this.token = localStorage.getItem("jwt");
 
-    this.projecttaskService.getEmployeeListForProjectTask(this.token).subscribe((data:any)=>{
+    this.sharedService.getEmployeeListForProjectTask(this.token).subscribe((data:any)=>{
       this.employeeList = data;
     });
 
-    this.projecttaskService.getUserStoryListForProjectTask(this.token).subscribe((data:any)=>{
+    this.sharedService.getUserStoryListForProjectTask(this.token).subscribe((data:any)=>{
       this.userStoryList = data;
     });
 
@@ -52,8 +54,8 @@ export class ProjectTaskComponent implements OnInit {
       taskStartDate: ['',[Validators.required]],
       taskEndDate: ['',[Validators.required]],
       taskCompletion: ['',[Validators.required]],
-      employeeID: ['',[Validators.required]],
-      userStoryID: ['',[Validators.required]],      
+      employeeID: ['--SelectEmployee--',[Validators.required]],
+      userStoryID: ['--Select User Story--',[Validators.required]],      
     });
 
     this.getProjectTaskList(this.token);
