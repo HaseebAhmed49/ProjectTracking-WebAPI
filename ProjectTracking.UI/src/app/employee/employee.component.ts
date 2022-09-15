@@ -98,6 +98,12 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
+  DetailsEmployee(id:any){
+    console.log(' Employee Details Implementation');
+    this.token = localStorage.getItem("jwt");
+  }
+
+
   Clear(employee: Employee){
     this.employeeForm.reset();
   }
