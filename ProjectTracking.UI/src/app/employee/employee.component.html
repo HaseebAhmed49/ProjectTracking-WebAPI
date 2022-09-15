@@ -1,126 +1,230 @@
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Project Tracking Application</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggle-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/">Home</a>
-            </li>
-            <li *ngIf="isUserAuthenticated()" class="nav-item">
-                <!-- This is Employee Button -->
-                <a class="nav-link" routerLink="/projecttask">Project Task</a>
-            </li>
-            <li *ngIf="isUserAuthenticated()" class="nav-item">
-                <a class="nav-link" routerLink="/project">Project</a>
-            </li>
-            <li *ngIf="isUserAuthenticated()" class="nav-item">
-                <!-- This is Employee Button -->
-                <a class="nav-link" routerLink="/userstory">User Story</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" (click)="logOut()">Logout</a>
-            </li>
-        </ul>
-    </div>
+  <a href="#" class="navbar-brand">Project Tracking Application</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarText"
+    aria-controls="navbarText"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggle-icon"></span>
+  </button>
+  <div class="navbar-collapse collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+      <li *ngIf="isUserAuthenticated()" class="nav-item">
+        <!-- This is Employee Button -->
+        <a class="nav-link" routerLink="/projecttask">Project Task</a>
+      </li>
+      <li *ngIf="isUserAuthenticated()" class="nav-item">
+        <a class="nav-link" routerLink="/project">Project</a>
+      </li>
+      <li *ngIf="isUserAuthenticated()" class="nav-item">
+        <!-- This is Employee Button -->
+        <a class="nav-link" routerLink="/userstory">User Story</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logOut()">Logout</a>
+      </li>
+    </ul>
+  </div>
 </nav>
 
 <form class="form-horizontal" [formGroup]="employeeForm">
-    <h1 style="text-align: center;">Employee CRUD Operations</h1>
-    <div>
-        <div class="row">
-<div class="col-3">
-
-</div>
-<div class="col-6 center">
-    <div class="form-group">
-        <!-- <label for="name" class="control-label col-sm-2">Employee Name:</label> -->
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="txtEmployeeName" formControlName="EmployeeName" placeholder="Name of Employee">
+  <h1 style="text-align: center">Employee CRUD Operations</h1>
+  <div>
+    <div class="row">
+      <div class="col-6 center">
+        <div class="form-group">
+          <!-- <label for="name" class="control-label col-sm-2">Employee Name:</label> -->
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="txtEmployeeName"
+              formControlName="EmployeeName"
+              placeholder="Name of Employee"
+            />
+          </div>
         </div>
-    </div>
-    <br/>
-    <div class="form-group">
-        <!-- <label for="designation" class="control-label col-sm-2">Designation:</label> -->
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="txtEmployeeDesignation" formControlName="Designation" placeholder="Designation of Employee">
+        <br />
+        <div class="form-group">
+          <!-- <label for="designation" class="control-label col-sm-2">Designation:</label> -->
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="txtEmployeeDesignation"
+              formControlName="Designation"
+              placeholder="Designation of Employee"
+            />
+          </div>
         </div>
-    </div>
-    <br/>
-    <div class="form-group">
-        <!-- <label for="contactNo" class="control-label col-sm-2">Contact No:</label> -->
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="txtEmployeeContactNo" formControlName="ContactNo" placeholder="Contact No of Employee">
+        <br />
+        <div class="form-group">
+          <!-- <label for="contactNo" class="control-label col-sm-2">Contact No:</label> -->
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="txtEmployeeContactNo"
+              formControlName="ContactNo"
+              placeholder="Contact No of Employee"
+            />
+          </div>
         </div>
-    </div>
-    <br/>
-    <div class="form-group">
-        <!-- <label for="emailId" class="control-label col-sm-2">Email Id:</label> -->
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="txtEmployeeId" formControlName="EmailID" placeholder="Email Id of Employee">
+        <br />
+        <div class="form-group">
+          <!-- <label for="emailId" class="control-label col-sm-2">Email Id:</label> -->
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="txtEmployeeId"
+              formControlName="EmailID"
+              placeholder="Email Id of Employee"
+            />
+          </div>
         </div>
-    </div>
-    <br/>
-    <div class="form-group">
-        <!-- <label for="skillSet" class="control-label col-sm-2">Skill Set:</label> -->
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="txtEmployeeSkillSet" formControlName="SkillSets" placeholder="Skill Set of Employee">
+        <br />
+        <div class="form-group">
+          <!-- <label for="skillSet" class="control-label col-sm-2">Skill Set:</label> -->
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="txtEmployeeSkillSet"
+              formControlName="SkillSets"
+              placeholder="Skill Set of Employee"
+            />
+          </div>
         </div>
-    </div>
-    <br/>
-    <div class="form-group">
-        <div class="container">
+        <br />
+        <div class="form-group">
+          <div class="container">
             <div class="row">
-                <div class="col-sm">
-                    <button class="btn btn-primary" (click)="AddEmployee(employeeForm.Value)">Add New Employee</button>
-                    |
-                    <button class="btn btn-warning" (click)="UpdateEmployee(employeeForm.Value)">Update Employee</button>
-                    |
-                    <button class="btn btn-danger" (click)="Clear(employeeForm.Value)">Clear</button>
-                </div>
+              <div class="col-sm">
+                <button
+                  class="btn btn-primary"
+                  (click)="AddEmployee(employeeForm.Value)"
+                >
+                  Add New Employee
+                </button>
+                |
+                <button
+                  class="btn btn-warning"
+                  (click)="UpdateEmployee(employeeForm.Value)"
+                >
+                  Update Employee
+                </button>
+                |
+                <button
+                  class="btn btn-danger"
+                  (click)="Clear(employeeForm.Value)"
+                >
+                  Clear
+                </button>
+              </div>
             </div>
+          </div>
+          <br />
         </div>
-        <br/>
-</div>
-<div class="col-3"></div>
-        </div>
-        </div>
-        <div>
-            <div class="alert-success alert" style="text-align: center;"><b>Employee List</b></div>
-            <div class="table-responsive" style="text-align: center;">
-                <table class="table table-striped ">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Employee Id</th>
-                            <th scope="col">Employee Name</th>
-                            <th scope="col">Designation</th>
-                            <th scope="col">Contact</th>
-                            <th scope="col">Email Id</th>
-                            <th scope="col">Skill Set</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let emp of EmployeeList | async; index as i">
-                            <th scope="row">{{ i+1 }}</th>
-                            <td>{{ emp.employeeID }}</td>
-                            <td>{{ emp.employeeName }}</td>
-                            <td>{{ emp.designation }}</td>
-                            <td>{{ emp.contactNo }}</td>
-                            <td>{{ emp.emailID }}</td>
-                            <td>{{ emp.skillSets }}</td>
-                            <td><button class="btn btn-primary" type="button" matToolTip="Click Edit Button" (click)="EmployeeDetailsToEdit(emp.employeeID)">Edit</button>
-                                |
-                                <button class="btn btn-danger" type="button" matToolTip="Click Delete Button" (click)="DeleteEmployee(emp.employeeID)">Delete</button>                                
-                                |
-                                <button class="btn btn-success" type="button" matToolTip="Click Details Button" (click)="DetailsEmployee(emp.employeeID)">Details</button>                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+      </div>
     </div>
+    <div>
+      <div class="alert-success alert" style="text-align: center">
+        <b>Employee List</b>
+      </div>
+      <div class="table-responsive" style="text-align: center">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Employee Id</th>
+              <th scope="col">Employee Name</th>
+              <th scope="col">Designation</th>
+              <th scope="col">Contact</th>
+              <th scope="col">Email Id</th>
+              <th scope="col">Skill Set</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let emp of EmployeeList | async; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ emp.employeeID }}</td>
+              <td>{{ emp.employeeName }}</td>
+              <td>{{ emp.designation }}</td>
+              <td>{{ emp.contactNo }}</td>
+              <td>{{ emp.emailID }}</td>
+              <td>{{ emp.skillSets }}</td>
+              <td>
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  matToolTip="Click Edit Button"
+                  (click)="EmployeeDetailsToEdit(emp.employeeID)"
+                >
+                  Edit
+                </button>
+                |
+                <button
+                  class="btn btn-danger"
+                  type="button"
+                  matToolTip="Click Delete Button"
+                  (click)="DeleteEmployee(emp.employeeID)"
+                >
+                  Delete
+                </button>
+                |
+                <button
+                  class="btn btn-success"
+                  type="button"
+                  matToolTip="Click Details Button"
+                  (click)="DetailsEmployee(emp.employeeID)"
+                >
+                  Details
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Details Start -->
+    <div class="table-responsive" style="text-align: center">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Employee Name</th>
+              <th scope="col">Designation</th>
+              <th scope="col">Contact</th>
+              <th scope="col">Email Id</th>
+              <th scope="col">Skill Set</th>
+              <th scope="col">Project Task ID</th>
+              <th scope="col">Assigned To</th>
+              <th scope="col">Task Start Date</th>
+              <th scope="col">Task End Date</th>
+              <th scope="col">Task Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let emp of Employee | async; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ emp.employeeName }}</td>
+              <td>{{ emp.designation }}</td>
+              <td>{{ emp.contactNo }}</td>
+              <td>{{ emp.emailID }}</td>
+              <td>{{ emp.skillSets }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!-- Details End -->
+  </div>
 </form>
