@@ -25,6 +25,7 @@ namespace ProjectTracking_WebAPI.Controllers
             _JWTManager = jWTManager;
         }
 
+        // Get All Employees
             [HttpGet("get-all-employees")]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
         {
@@ -39,6 +40,7 @@ namespace ProjectTracking_WebAPI.Controllers
             }
         }
 
+        // Get Employee based on id
         [HttpGet("get-employee-by-id/{id}")]
         public async Task<IActionResult> GetEmployeeById(int id)
         {
@@ -54,6 +56,7 @@ namespace ProjectTracking_WebAPI.Controllers
             }
         }
 
+        // Get All Project Tasks for an Employee based on id
         [HttpGet("get-employee-with-project-tasks-by-id/{id}")]
         public async Task<IActionResult> GetEmployeeWithProjectTasksById(int id)
         {
