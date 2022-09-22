@@ -6,6 +6,7 @@ import { Employee } from '../models/employee';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
+import { EmployeeWithProjectTasks } from '../models/employeeWithProjectTasks';
 
 @Component({
   selector: 'app-employee',
@@ -15,7 +16,12 @@ import { ToastrService } from 'ngx-toastr';
 export class EmployeeComponent implements OnInit {
   EmployeeList?: Observable<Employee[]>;
   EmployeeList1?: Observable<Employee[]>;
+
+  EmployeeListWithProjects?: Observable<EmployeeWithProjectTasks[]>;
+  EmployeeListWithProjects1?: Observable<EmployeeWithProjectTasks[]>;
+
   employeeForm: any;
+
   massage="";
   token:any;
 
