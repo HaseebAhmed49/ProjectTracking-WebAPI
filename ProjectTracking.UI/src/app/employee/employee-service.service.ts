@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Employee } from '../models/employee';
 import configUrl from '../../assets/Config/config.json';
+import { EmployeeWithProjectTasks } from '../models/employeeWithProjectTasks';
 
 @Injectable({
   providedIn: 'root'
@@ -73,4 +74,17 @@ export class EmployeeServiceService {
       })};
     return this.http.get<Employee>(this.url + 'get-employee-by-id/' + id,httpHeaders);
   }
+
+  getEmployeeDetailsWithProjectTasksById(id: any,token:any): Observable<EmployeeWithProjectTasks[]>{
+    const httpHeaders = { 
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+        'Authorization': 'Bearer '+ token,
+      })};
+    return this.http.get<EmployeeWithProjectTasks[]>(this.url + 'get-employee-with-project-tasks-by-id/' + id,httpHeaders);
   }
+
+}

@@ -105,8 +105,12 @@ export class EmployeeComponent implements OnInit {
   }
 
   DetailsEmployee(id:any){
+    console.log(id);
     console.log(' Employee Details Implementation');
     this.token = localStorage.getItem("jwt");
+    this.EmployeeListWithProjects1 = this.employeeService.getEmployeeDetailsWithProjectTasksById(id,this.token);
+    this.EmployeeListWithProjects = this.EmployeeListWithProjects1;
+    console.log(this.EmployeeListWithProjects1);
   }
 
 
