@@ -39,6 +39,8 @@ namespace ProjectTracking_WebAPI.Controllers
             }
         }
 
+
+
         // GET: api/values
         [HttpGet("get-all-project-tasks-with-details")]
         public async Task<IActionResult> GetAllProjectTasksWithDetails()
@@ -53,6 +55,21 @@ namespace ProjectTracking_WebAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("get-project-task-for-employee-by-id/{id}")]
+        public async Task<IActionResult> GetProjectTaskForEmployeeById(int id)
+        {
+            try
+            {
+                var projectTasksForAnEmployee = await _service.GetAllProjectTasksForAnEmployee(id);
+                return (projectTasksForAnEmployee != null) ? Ok(projectTasksForAnEmployee) : BadRequest($"No Project Task for Employee Id:{id} Found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         // GET: api/values/5
         [HttpGet("get-project-task-by-id/{id}")]

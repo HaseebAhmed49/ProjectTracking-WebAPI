@@ -46,6 +46,12 @@ namespace ProjectTracking_WebAPI.Data.Services
 
         public async Task<List<ProjectTask>> GetAllProjectTasks() => await _context.ProjectTask.ToListAsync();
 
+        public async Task<List<ProjectTask>> GetAllProjectTasksForAnEmployee(int employeeId)
+        {
+            var allProjectTask = await _context.ProjectTask.Where(id => id.EmployeeID == employeeId).ToListAsync();
+            return allProjectTask;
+        }
+
         public async Task<List<ProjectTaskWithDetailsVM>> GetAllProjectTasksWithDetails()
         {
             var allProjectTasksWithDetails = new List<ProjectTaskWithDetailsVM>();
@@ -109,6 +115,7 @@ namespace ProjectTracking_WebAPI.Data.Services
                 return null;
             }
         }
+
     }
 }
 
