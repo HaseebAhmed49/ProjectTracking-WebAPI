@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjectTracking_WebAPI.Models;
 
@@ -46,10 +47,17 @@ namespace ProjectTracking_WebAPI.Data.Services
 
         public async Task<List<ProjectTask>> GetAllProjectTasks() => await _context.ProjectTask.ToListAsync();
 
-        public async Task<List<ProjectTask>> GetAllProjectTasksForAnEmployee(int employeeId)
+        public async Task<List<ProjectTaskForEmployeeVM>> GetAllProjectTasksForAnEmployee(int employeeId)
         {
-            var allProjectTask = await _context.ProjectTask.Where(id => id.EmployeeID == employeeId).ToListAsync();
-            return allProjectTask;
+            var allProjectTasksForAnEmployee = await _context.ProjectTask.Where(id => id.EmployeeID == employeeId).Select(pt => new ProjectTaskForEmployeeVM()
+            {
+                AssignedTo = pt.AssignedTo,
+                ProjectTaskID = pt.ProjectTaskID,
+                TaskCompletion = pt.TaskCompletion,
+                TaskEndDate = pt.TaskEndDate,
+                TaskStartDate = pt.TaskStartDate
+            }).ToListAsync();
+            return allProjectTasksForAnEmployee;
         }
 
         public async Task<List<ProjectTaskWithDetailsVM>> GetAllProjectTasksWithDetails()

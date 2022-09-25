@@ -9,7 +9,7 @@ namespace ProjectTracking_WebAPI.Data.Services
 
         public Task<ProjectTaskWithDetailsVM> GetProjectTaskWithDetails(int id);
 
-        public Task<List<ProjectTask>> GetAllProjectTasksForAnEmployee(int employeeId);
+        public Task<List<ProjectTaskForEmployeeVM>> GetAllProjectTasksForAnEmployee(int employeeId);
 
         public Task<List<ProjectTaskWithDetailsVM>> GetAllProjectTasksWithDetails();
 

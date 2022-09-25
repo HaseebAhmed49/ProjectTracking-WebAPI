@@ -6,5 +6,5 @@ export class EmployeeWithProjectTasks{
     contactNo?: string;
     emailID?: string;
     skillSets?: string;
-    ProjectTasks?: Array<ProjectTaskForEmployee>;
+    ProjectTasks?: ProjectTaskForEmployee;
 }
